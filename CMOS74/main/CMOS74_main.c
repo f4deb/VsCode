@@ -26,6 +26,7 @@
 
 #include "../components/cpuLed/include/cpuLed.h"
 #include "../components/charUtils/include/charUtils.h"
+#include "../components/i2cTools/include/i2cTools.h"
 #include "../components/interface/include/interface.h"
 #include "../components/interface/include/interfaceDescriptor.h"
 #include "../components/led_strip/include/led_strip.h"
@@ -47,6 +48,9 @@ void init(){
 
     /* Configure the peripheral according to the LED type */
     configure_led();
+
+    I2cBusInit();  
+
 
     //I2cBusInit();  
     //i2c_dev_pcf8574_init();
@@ -87,6 +91,7 @@ void init(){
 
 void app_main(void){
     init();
+    i2cDetect();
     
     //   Blink Task
     while (1) {
