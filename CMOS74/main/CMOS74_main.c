@@ -26,7 +26,7 @@
 
 #include "../components/cpuLed/include/cpuLed.h"
 #include "../components/charUtils/include/charUtils.h"
-#include "../components/i2cTools/include/i2cTools.h"
+#include "../components/i2c/include/i2cTools.h"
 #include "../components/interface/include/interface.h"
 #include "../components/interface/include/interfaceDescriptor.h"
 #include "../components/led_strip/include/led_strip.h"

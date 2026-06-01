@@ -2,11 +2,14 @@ idf_component_register(SRCS "interface.c"
                             "interfaceDescriptor.c"
                             "../charUtils/charUtils.c"
                             "../cpuLed/cpuLedInterface.c" 
-                            "../cpuLed/cpuLedInterfaceDescriptor.c"                            
+                            "../cpuLed/cpuLedInterfaceDescriptor.c"   
+                            "../i2c/i2cInterface.c"                         
 INCLUDE_DIRS "include" 
             "../charUtils/include"
 			"../cpuLed/include/" 
-            
+            "../i2c/include/"
             "$ENV{IDF_PATH}/components/nvs_flash/include"
             "$ENV{IDF_PATH}/components/esp_event/include"
-            "$ENV{IDF_PATH}/components/esp_partition/include")
+            "$ENV{IDF_PATH}/components/esp_partition/include"
+            PRIV_REQUIRES  driver
+            )
