@@ -16,7 +16,7 @@
 //#include "../clock/include/clockInterface.h"
 //#include "../8IoButtonBoard/include/8IoButtonBoardInterface.h"
 //#include "../Oled/include/OledInterface.h"
-#include "../i2c/include/i2CInterface.h"
+#include "../i2c/include/i2cInterface.h"
 //#include "../sensor/include/sensorInterface.h"
 
 #define TAG "Interface"

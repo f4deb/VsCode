@@ -62,7 +62,7 @@ void cpuLedInterface(char rxBuffer[50]){
             s_led_state= 0x99;
         }        
 
-        uartDataBack(status);
+        uartDataBackLF(status);
 
     }
     else if ((strcmp(SET_TIME_BLINK_HEADER,str)) == 0) {
@@ -89,7 +89,7 @@ void cpuLedInterface(char rxBuffer[50]){
             s_led_state= 0x99;
         }        
 
-        uartDataBack(status);
+        uartDataBackLF(status);
     }
     else if ((strcmp(SET_CPU_LED_HEADER,str)) == 0) {
 
@@ -119,7 +119,7 @@ void cpuLedInterface(char rxBuffer[50]){
             s_led_state= 0x99;
         }        
 
-        uartDataBack(status);
+        uartDataBackLF(status);
     }
     else if ((strcmp(GET_CPU_LED_HEADER,str)) == 0) {
         // Lecture 2 paramètres
@@ -140,7 +140,7 @@ void cpuLedInterface(char rxBuffer[50]){
         if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "LED Status : %s", s_led_state == true ? "ON" : "OFF");
         sprintf (status,"%02x", s_led_state );        
             
-        uartDataBack(status);
+        uartDataBackLF(status);
     }
     else if ((strcmp(HELP_CPU_LED_HEADER,str)) == 0) {
         // Lecture 0 paramètre

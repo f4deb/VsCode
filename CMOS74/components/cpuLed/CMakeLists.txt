@@ -4,4 +4,5 @@ idf_component_register(SRCS "cpuLedInterfaceDescriptor.c" "cpuLedInterface.c" "c
                         "../uartCommand/include"
                         "../interface/include"
                         "$ENV{IDF_PATH}/components/esp_event/include"
-                        "$ENV{IDF_PATH}/components/esp_driver_gpio/include")
+                        "$ENV{IDF_PATH}/components/esp_driver_gpio/include"
+                        )

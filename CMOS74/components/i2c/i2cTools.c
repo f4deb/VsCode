@@ -7,6 +7,8 @@
 #include "esp_console.h"
 #include "esp_log.h"
 
+#include "../charUtils/include/charUtils.h"
+#include "../uartUtils/include/uartUtils.h"
 
 #define I2C_TOOL_TIMEOUT_VALUE_MS (50)
 #define ESP_I2C_PORT I2C_NUM_0
@@ -40,23 +42,43 @@ uint8_t I2cBusInit(void){
 }
 
 void i2cDetect(void)
-{
+{char str[] = "     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f";
     uint8_t address;
-    printf("     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f\r\n");
+    
+    printf(str);
+    printf("\r\n");
+    uartDataBackLF(str);
+
     for (int i = 0; i < 128; i += 16) {
-        printf("%02x: ", i);
+        sprintf(str,"%02x: ", i);
+                printf(str);
+
+        uartDataBack(str);
+
+
         for (int j = 0; j < 16; j++) {
             fflush(stdout);
             address = i + j;
             esp_err_t ret = i2c_master_probe(tool_bus_handle, address, I2C_TOOL_TIMEOUT_VALUE_MS);
             if (ret == ESP_OK) {
                 printf("%02x ", address);
+                sprintf(str,"%02x ", address);
+                uartDataBack(str);
+                
             } else if (ret == ESP_ERR_TIMEOUT) {
+                sprintf (str,"UU ");
                 printf("UU ");
+                uartDataBack(str);
             } else {
+                sprintf(str,"-- ");
                 printf("-- ");
+                 uartDataBack(str);
             }
         }
         printf("\r\n");
+        sprintf(str," ");
+                         uartDataBackLF(str);
+
+
     }
 }

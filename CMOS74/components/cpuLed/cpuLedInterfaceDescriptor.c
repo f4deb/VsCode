@@ -20,14 +20,7 @@
 
 #define TAG "CPU Led Interface Descrtiptor "
 
-char status[100] = "TOTO";
-
-
-void cpuLedInterfaceDescriptor(void){
-    char *str1 = "";
-    sprintf(status,"\r" );      
-    uartDataBack(status); 
-    
+void cpuLedInterfaceDescriptor(void){  
     printDeviceLine();
     printHelpTitle(INTERFACE_HEADER, CPU_LED_INTERFACE_HEADER,"     ", CPU_LED_INTERFACE_HEADER_NAME);
     printDeviceLine();

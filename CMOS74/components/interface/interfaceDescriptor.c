@@ -25,7 +25,7 @@ void printDeviceLine(void){
     str1="|";
     strncat (str,str1,strlen(str1)+1);
     ESP_LOGE(TAG,"%s",str);
-    uartDataBack(str);
+    uartDataBackLF(str);
 }
 
 void printDeviceStar(void){
@@ -37,7 +37,7 @@ void printDeviceStar(void){
     str1="|";
     strncat (str,str1,strlen(str1)+1);
     ESP_LOGE(TAG,"%s",str);
-    uartDataBack(str);
+    uartDataBackLF(str);
 }
 
 
@@ -57,7 +57,7 @@ void printHelpTitle(char *text1,char *text2,char *text3,char *text4){
     text1 = " |";
     strncat (str,text1,strlen(text1)+1);
     ESP_LOGE(TAG,"%s",str);
-    uartDataBack(str);
+    uartDataBackLF(str);
 }
 
 char *printHelpFirstColumn(char *text){
@@ -99,7 +99,7 @@ void printTableBlank(void){
     str1 = printHelpSecondColumn(str," ");
     sprintf(str, str1);
     ESP_LOGE(TAG,"%s",str);
-    uartDataBack(str);
+    uartDataBackLF(str);
 }
 
 void printTableBLine(char *text1,char *text2,char *text3,char *text4){
@@ -112,5 +112,5 @@ void printTableBLine(char *text1,char *text2,char *text3,char *text4){
     str1 = printHelpSecondColumn(str,text3);
     sprintf(str, str1);
     ESP_LOGE(TAG,"%s",str);
-    uartDataBack(str);
+    uartDataBackLF(str);
 }

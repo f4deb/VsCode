@@ -1,9 +1,9 @@
 #include <stdio.h>
+
 #include "uartCommand.h"
 
 #include "sdkconfig.h"
 #include "esp_log.h"
-
 #include "../../../../esp-idf/components/esp_driver_uart/include/driver/uart.h"
 
 static const char *TAG = "UART TEST";
@@ -13,7 +13,7 @@ static char *TYPE_UART_COMMAND  = "2";
 
 unsigned char *s;
 
-unsigned int length = 1024;
+unsigned int length = 8024;
 
 static QueueHandle_t queue;
 char txBuffer[BUF_SIZE];

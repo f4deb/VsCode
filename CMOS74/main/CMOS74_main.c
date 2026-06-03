@@ -61,7 +61,7 @@ void init(){
                 "uart_command_task", 
                 COMMAND_TASK_STACK_SIZE, 
                 NULL,
-                1, 
+                2, 
                 NULL);
 /*
     // CLOCK Task
