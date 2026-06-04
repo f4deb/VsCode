@@ -27,6 +27,11 @@ i2c_master_bus_handle_t getI2cBus (void){
     return tool_bus_handle;
 }
     
+/**
+ * @brief Initialise Bus I2C 
+ * @param none :
+ * @return uint8_t 
+ */
 uint8_t I2cBusInit(void){
     i2c_master_bus_config_t i2c_bus_config = {
         .clk_source = I2C_CLK_SRC_DEFAULT,
@@ -41,6 +46,12 @@ uint8_t I2cBusInit(void){
     return 0;
 }
 
+/**
+ * @brief : scan I2C Bus and write result to UART 06/2026
+ *
+ * @param none :
+ * @return none :
+ */
 void i2cDetect(void)
 {char str[] = "     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f";
     uint8_t address;
@@ -54,7 +65,6 @@ void i2cDetect(void)
                 printf(str);
 
         uartDataBack(str);
-
 
         for (int j = 0; j < 16; j++) {
             fflush(stdout);
@@ -77,8 +87,6 @@ void i2cDetect(void)
         }
         printf("\r\n");
         sprintf(str," ");
-                         uartDataBackLF(str);
-
-
+        uartDataBackLF(str);
     }
 }

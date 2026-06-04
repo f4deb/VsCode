@@ -51,8 +51,6 @@ void init(){
 
     I2cBusInit();  
 
-
-    //I2cBusInit();  
     //i2c_dev_pcf8574_init();
 //printDeviceLine();
     //initClock();

@@ -9,6 +9,4 @@ void i2cDetect(void);
 
 i2c_master_bus_handle_t getI2cBus (void);
 
-
-
 #endif

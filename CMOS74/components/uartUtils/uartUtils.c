@@ -14,7 +14,11 @@
 
 #define TAG "CPU Led Interface"
 
-
+/**
+ * @brief :Write data and add LF back to the UART 06/2026
+ * 
+ * @param status : char input and add LF to transmit to UART
+ */
 void uartDataBackLF(char status[50]){
 
         // Write data back to the UART
@@ -24,6 +28,11 @@ void uartDataBackLF(char status[50]){
         uart_write_bytes(COMMAND_UART_PORT_NUM, status, strlen(status));
 }
 
+/**
+ * @brief : Write data back to the UART 06/2026
+ *
+ * @param status : char input to transmit to UART
+ */
 void uartDataBack(char status[50]){
 
         // Write data back to the UART
