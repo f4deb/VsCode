@@ -16,7 +16,7 @@ void initSevenSegments(void){
 
 }
 
-void writeSegments(void){
+void writeSegments(char *str){
 
 }
 

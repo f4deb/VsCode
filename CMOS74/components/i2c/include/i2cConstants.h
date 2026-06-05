@@ -1,0 +1,219 @@
+#ifndef I2C_CONSTANTS_H
+#define I2C_CONSTANTS_H
+
+// ALL I2C DEVICE
+#define I2C_GENERAL_ADDRESS     0x00
+
+// ACCELEROMETER ADXL345        
+#define ADXL345_ADDRESS         0x3A
+
+// GPIO14 : Conflict with PCF8574
+
+#define GPIO14_ADDRESS_0        0x40
+#define GPIO14_ADDRESS_1        0x42
+#define GPIO14_ADDRESS_2        0x44
+#define GPIO14_ADDRESS_3        0x46
+#define GPIO14_ADDRESS_4        0x48
+#define GPIO14_ADDRESS_5        0x4A
+#define GPIO14_ADDRESS_6        0x4C
+#define GPIO14_ADDRESS_7        0x4E
+
+// PCF8574
+
+#define PCF8574_ADDRESS_0        0x40
+#define PCF8574_ADDRESS_1        0x42
+#define PCF8574_ADDRESS_2        0x44
+#define PCF8574_ADDRESS_3        0x46
+#define PCF8574_ADDRESS_4        0x48
+#define PCF8574_ADDRESS_5        0x4A
+#define PCF8574_ADDRESS_6        0x4C
+#define PCF8574_ADDRESS_7        0x4E
+
+// FREE ADDRESS
+#define FREE_ADDRESS_0            0x50
+#define TCS34725_ADDRESS          0x52
+
+#define FREE_ADDRESS_2            0x54
+#define FREE_ADDRESS_3            0x56
+#define FREE_ADDRESS_4            0x58
+#define FREE_ADDRESS_5            0x5A
+#define FREE_ADDRESS_6            0x5C
+#define FREE_ADDRESS_7            0x5E
+
+// VL530X
+#define VL530X_ADDRESS_BASE_ADDRESS        0x52
+#define VL530X_ADDRESS_0                   0x54
+#define VL530X_ADDRESS_1                   0x56
+#define VL530X_ADDRESS_2                   0x58
+#define VL530X_ADDRESS_3                   0x5A
+#define VL530X_ADDRESS_4                   0x5C
+#define VL530X_ADDRESS_5                   0x5E
+#define VL530X_ADDRESS_6                   0x60
+#define VL530X_ADDRESS_7                   0x62
+#define VL530X_ADDRESS_8                   0x64
+#define VL530X_ADDRESS_9                   0x66
+#define VL530X_ADDRESS_10                  0x68
+#define VL530X_ADDRESS_11                  0x6A
+#define VL530X_ADDRESS_12                  0x6C
+#define VL530X_ADDRESS_13                  0x6E
+#define VL530X_ADDRESS_14                  0x70
+
+// PCF8574A
+#define PCF8574A_ADDRESS_0        0x70
+#define PCF8574A_ADDRESS_1        0x72
+#define PCF8574A_ADDRESS_2        0x74
+#define PCF8574A_ADDRESS_3        0x76
+#define PCF8574A_ADDRESS_4        0x78
+#define PCF8574A_ADDRESS_5        0x7A
+#define PCF8574A_ADDRESS_6        0x7C
+#define PCF8574A_ADDRESS_7        0x7E
+
+// RLY08
+#define RLY08_ADDRESS_0            0x70
+#define RLY08_ADDRESS_1            0x72
+#define RLY08_ADDRESS_2            0x74
+#define RLY08_ADDRESS_3            0x76
+#define RLY08_ADDRESS_4            0x78
+#define RLY08_ADDRESS_5            0x7A
+#define RLY08_ADDRESS_6            0x7C
+#define RLY08_ADDRESS_7            0x7E
+
+//SAA1064
+#define SAA1064_ADDR_0             0x70   //0X38
+#define SAA1064_ADDR_0             0x76   //0X3B
+
+// PCA9685
+#define PCA9685_ADDRESS_0             0x80  // A0 = 0, A1 = 0, A2 = 0
+#define PCA9685_ADDRESS_1             0x82  // A0 = 1, A1 = 0, A2 = 0
+#define PCA9685_ADDRESS_2             0x84  // A0 = 0, A1 = 1, A2 = 0
+#define PCA9685_ADDRESS_3             0x86  // A0 = 1, A1 = 1, A2 = 0
+#define PCA9685_ADDRESS_4             0x88  // A0 = 0, A1 = 0, A2 = 1
+#define PCA9685_ADDRESS_5             0x8A  // A0 = 1, A1 = 0, A2 = 1
+#define PCA9685_ADDRESS_6             0x8C  // A0 = 0, A1 = 1, A2 = 1
+#define PCA9685_ADDRESS_7             0x8E  // A0 = 1, A1 = 1, A2 = 1
+
+// INA3221
+#define INA3221_ADDRESS_0                   0x80   // A0 -> GND
+#define INA3221_ADDRESS_1                   0x82   // A0 -> Vs
+#define INA3221_ADDRESS_2                   0x84   // A0 -> SDA
+#define INA3221_ADDRESS_3                   0x86   // A0 -> SCL
+
+// INA219
+#define INA219_ADDRESS_0                    0x80   // A1 -> GND, A0 -> GND
+#define INA219_ADDRESS_1                    0x82   // A1 -> GND, A0 -> VS+
+#define INA219_ADDRESS_2                    0x84   // A1 -> GND, A0 -> SDA
+#define INA219_ADDRESS_3                    0x86   // A1 -> GND, A0 -> SCL
+
+#define INA219_ADDRESS_4                    0x88   // A1 -> VS+, A0 -> GND
+#define INA219_ADDRESS_5                    0x8A   // A1 -> VS+, A0 -> VS+
+#define INA219_ADDRESS_6                    0x8C   // A1 -> VS+, A0 -> SDA
+#define INA219_ADDRESS_7                    0x8E   // A1 -> VS+, A0 -> SCL
+
+#define INA219_ADDRESS_8                    0x90   // A1 -> SDA, A0 -> GND
+#define INA219_ADDRESS_9                    0x92   // A1 -> SDA, A0 -> VS+
+#define INA219_ADDRESS_10                   0x94   // A1 -> SDA, A0 -> SDA
+#define INA219_ADDRESS_11                   0x96   // A1 -> SDA, A0 -> SCL
+
+#define INA219_ADDRESS_12                   0x98   // A1 -> SCL, A0 -> GND
+#define INA219_ADDRESS_13                   0x9A   // A1 -> SCL, A0 -> VS+
+#define INA219_ADDRESS_14                   0x9C   // A1 -> SCL, A0 -> SDA
+#define INA219_ADDRESS_15                   0x9E   // A1 -> SCL, A0 -> SCL
+
+
+// LM75A TEMPERATURE SENSOR
+#define LM75A_ADDRESS                 0x90
+
+// FOCUS ROBOTIC ADDRESS : 0x92 -> 0x9E
+/** Define the I2C address used by motorBoard. */
+#define MOTOR_BOARD_I2C_ADDRESS         0x94
+#define MECHANICAL_BOARD_1_I2C_ADDRESS  0x96
+
+
+// EEPROM 24C16
+#define ST24C16_ADDRESS_0             0xA0
+#define ST24C16_ADDRESS_1             0XA1
+#define ST24C16_ADDRESS_2             0XA2
+#define ST24C16_ADDRESS_3             0xA3
+#define ST24C16_ADDRESS_4             0XA4
+#define ST24C16_ADDRESS_5             0XA5
+#define ST24C16_ADDRESS_6             0xA6
+#define ADXL345_ALT_ADDRESS           0xA6
+#define ST24C16_ADDRESS_7             0XA7
+
+// EEPROM 24C512
+
+#define ST24C512_ADDRESS_0             0xA0
+#define ST24C512_ADDRESS_1             0XA1
+#define ST24C512_ADDRESS_2             0XA2
+#define ST24C512_ADDRESS_3             0xA3
+#define ST24C512_ADDRESS_4             0XA4
+#define ST24C512_ADDRESS_5             0XA5
+#define ST24C512_ADDRESS_6             0xA6
+#define ST24C512_ADDRESS_7             0XA7
+
+//CLOCK PCF8563
+// Warning : Conflict with EEPROM "<ST24C16"
+#define PCF8563_WRITE_ADDRESS               0xA2
+
+// CMPS03
+
+#define CMPS03_ADDRESS            0XC0
+
+//  SD21
+
+#define SD21_ADDRESS            0xC2
+
+// SP03 - Speech Synthetizer
+
+#define SP03_ADDRESS            0XC4
+
+// LCD03
+
+#define LCD03_ADDRESS            0XC6
+
+// MD22 Address
+
+#define MD22_ADDRESS_0             0xB0
+#define MD22_ADDRESS_1             0xB2
+#define MD22_ADDRESS_2             0xB4
+#define MD22_ADDRESS_3             0xB6
+#define MD22_ADDRESS_4             0xB8
+#define MD22_ADDRESS_5             0xBA
+#define MD22_ADDRESS_6             0xBC
+#define MD22_ADDRESS_7             0xBE
+
+// PCF8573 Address
+#define PCF8573P_WRITE_ADDRESS     0xD0
+
+
+// TCA9548 : Conflict with SRF02 !
+#define TCA9548A_ADDRESS_0        0xE0
+#define TCA9548A_ADDRESS_1        0xE2
+#define TCA9548A_ADDRESS_2        0xE4
+#define TCA9548A_ADDRESS_3        0xE6
+#define TCA9548A_ADDRESS_4        0xE8
+#define TCA9548A_ADDRESS_5        0xEA
+#define TCA9548A_ADDRESS_6        0xEC
+#define TCA9548A_ADDRESS_7        0xEE
+
+// SRF02
+
+#define SRF02_ADDRESS_0         0xE0
+#define SRF02_ADDRESS_1         0xE2
+#define SRF02_ADDRESS_2         0xE4
+#define SRF02_ADDRESS_3         0xE6
+#define SRF02_ADDRESS_4         0xE8
+#define SRF02_ADDRESS_5         0xEA
+#define SRF02_ADDRESS_6         0xEC
+#define SRF02_ADDRESS_7         0xEE
+
+#define SRF02_ADDRESS_8         0xF0
+#define SRF02_ADDRESS_9         0xF2
+#define SRF02_ADDRESS_10         0xF4
+#define SRF02_ADDRESS_11         0xF6
+#define SRF02_ADDRESS_12         0xF8
+#define SRF02_ADDRESS_13         0xFA
+#define SRF02_ADDRESS_14         0xFC
+#define SRF02_ADDRESS_15         0xFE
+
+#endif

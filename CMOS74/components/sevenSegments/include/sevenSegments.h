@@ -5,5 +5,8 @@
 
 #define SEVEN_SEGMENTS_DEBUG 0
 
+void initSevenSegments(void);
+
+void writeSegments(char *str);
 
 #endif

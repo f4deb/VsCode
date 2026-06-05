@@ -38,7 +38,7 @@ void sevenSegmentsInterface(char rxBuffer[50]){
     if (SEVEN_SEGMENTS_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
     rxBuffer++;        
    
-    if ((strcmp(SET_RATIO_BLINK_HEADER,str)) == 0) {
+    if ((strcmp(WRITE_ONE_SEVEN_SEGMENTS_HEADER,str)) == 0) {
         // Lecture 3 paramètres
         ledNumber = readHex(stringToString(str,rxBuffer,2));
         rxBuffer++;        
@@ -51,21 +51,12 @@ void sevenSegmentsInterface(char rxBuffer[50]){
         value8 = readDec(stringToString(str,rxBuffer,2));
       
         // traitement
-        if (ledNumber == LED1){
-            setRatioBlink(getLed1(),ledColor,value8);
-        }
-        else if (ledNumber == LED2){
-            setRatioBlink(getLed2(),ledColor,value8);
-        }
-        else {
-            if (SEVEN_SEGMENTS_INTERFACE_DEBUG) ESP_LOGE(TAG, "Invalid Led number");
-            s_led_state= 0x99;
-        }        
+        
 
         uartDataBackLF(status);
 
     }
-    else if ((strcmp(SET_TIME_BLINK_HEADER,str)) == 0) {
+    else if ((strcmp(WRITE_TWO_SEVEN_SEGMENTS_HEADER,str)) == 0) {
         // Lecture 3 paramètres
         ledNumber = readHex(stringToString(str,rxBuffer,2));
         rxBuffer++;        
@@ -78,20 +69,11 @@ void sevenSegmentsInterface(char rxBuffer[50]){
         value32 = readDec(stringToString(str,rxBuffer,4));
       
         // traitement
-        if (ledNumber == LED1){
-            setPeriodBlink(getLed1(),ledColor,value32);
-        }
-        else if (ledNumber == LED2){
-            setPeriodBlink(getLed2(),ledColor,value32);
-        }
-        else {
-            if (SEVEN_SEGMENTS_INTERFACE_DEBUG) ESP_LOGE(TAG, "Invalid Led number");
-            s_led_state= 0x99;
-        }        
+       
 
         uartDataBackLF(status);
     }
-    else if ((strcmp(SET_SEVEN_SEGMENTS_HEADER,str)) == 0) {
+    else if ((strcmp(WRITE_THREE_SEVEN_SEGMENTS_HEADER,str)) == 0) {
 
  // Lecture 3 paramètres
         ledNumber = readHex(stringToString(str,rxBuffer,2));
@@ -108,37 +90,17 @@ void sevenSegmentsInterface(char rxBuffer[50]){
         } 
       
         // traitement
-        if (ledNumber == LED1){
-            setRatioBlink(getLed1(),ledColor,value8);
-        }
-        else if (ledNumber == LED2){
-            setRatioBlink(getLed2(),ledColor,value8);
-        }
-        else {
-            if (SEVEN_SEGMENTS_INTERFACE_DEBUG) ESP_LOGE(TAG, "Invalid Led number");
-            s_led_state= 0x99;
-        }        
+       
 
         uartDataBackLF(status);
     }
-    else if ((strcmp(GET_SEVEN_SEGMENTS_HEADER,str)) == 0) {
+    else if ((strcmp(WRITE_FOR_SEVEN_SEGMENTS_HEADER,str)) == 0) {
         // Lecture 2 paramètres
         ledNumber = readHex(stringToString(str,rxBuffer,2));
         ledColor = readHex(stringToString(str,rxBuffer,2));
 
         // traitement
-        if (ledNumber == LED1){
-            s_led_state= getCpuLed(getLed1(),ledColor);
-        }
-        else if (ledNumber == LED2){
-            s_led_state= getCpuLed(getLed2(),ledColor);
-        }
-        else {
-            if (SEVEN_SEGMENTS_INTERFACE_DEBUG) ESP_LOGE(TAG, "Invalid Led number");
-            s_led_state= 0x99;
-        }        
-        if (SEVEN_SEGMENTS_INTERFACE_DEBUG) ESP_LOGE(TAG, "LED Status : %s", s_led_state == true ? "ON" : "OFF");
-        sprintf (status,"%02x", s_led_state );        
+        
             
         uartDataBackLF(status);
     }
