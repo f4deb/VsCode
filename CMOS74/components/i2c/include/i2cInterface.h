@@ -14,6 +14,8 @@
 
 #define I2C_DETECT_HEADER "c"
 #define I2C_HELP_HEADER "h"
+#define I2C_WRITE_DATA "W"
+#define I2C_READ_DATA "R"
 
 void i2cInterface(char rxBuffer[50]);
 

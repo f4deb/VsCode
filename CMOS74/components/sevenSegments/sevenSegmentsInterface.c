@@ -100,8 +100,6 @@ void sevenSegmentsInterface(char rxBuffer[50]){
         ledColor = readHex(stringToString(str,rxBuffer,2));
 
         // traitement
-        
-            
         uartDataBackLF(status);
     }
     else if ((strcmp(SEVEN_SEGMENTS_HELP_HEADER,str)) == 0) {

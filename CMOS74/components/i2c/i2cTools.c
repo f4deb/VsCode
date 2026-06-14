@@ -19,30 +19,61 @@ static uint32_t i2c_frequency = 100 * 1000;
 static const char *TAG = "i2ctools";
 static i2c_master_bus_handle_t tool_bus_handle; //static i2c_master_bus_handle_t i2c_handle = NULL;
 static i2c_master_bus_config_t i2c_bus_config;
+static i2c_master_dev_handle_t dev_handle;
 
 
+
+#define I2C_MASTER_TIMEOUT_MS       1000
 
 
 i2c_master_bus_handle_t getI2cBus (void){
     return tool_bus_handle;
 }
+
+/**
+ * @brief Read a sequence of bytes from a MPU9250 sensor registers
+ */
+static esp_err_t mpu9250_register_read(i2c_master_dev_handle_t dev_handle, uint8_t reg_addr, uint8_t *data, size_t len)
+{
+    return i2c_master_transmit_receive(dev_handle, &reg_addr, 1, data, len, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
+}
+
+/**
+ * @brief Write a byte to a MPU9250 sensor register
+ */
+static esp_err_t mpu9250_register_write_byte(i2c_master_dev_handle_t dev_handle, uint8_t reg_addr, uint8_t data)
+{
+    uint8_t write_buf[2] = {reg_addr, data};
+    return i2c_master_transmit(dev_handle, write_buf, sizeof(write_buf), I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
+}
     
+
+
+
+
+
 /**
  * @brief Initialise Bus I2C 
  * @param none :
  * @return uint8_t 
  */
 uint8_t I2cBusInit(void){
+
+    i2c_master_bus_handle_t bus_handle;
+    i2c_master_dev_handle_t dev_handle;
+
     i2c_master_bus_config_t i2c_bus_config = {
         .clk_source = I2C_CLK_SRC_DEFAULT,
         .i2c_port = ESP_I2C_PORT,
         .scl_io_num = ESP_I2C_SCL,
         .sda_io_num = ESP_I2C_SDA,
         .glitch_ignore_cnt = 7,
-        .flags.enable_internal_pullup = true,
+        .flags.enable_internal_pullup = true
     };
 
     ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_config, &tool_bus_handle));
+    ESP_LOGI(TAG, "I2C initialized successfully");
+
     return 0;
 }
 
@@ -89,4 +120,13 @@ void i2cDetect(void)
         sprintf(str," ");
         uartDataBackLF(str);
     }
+}
+
+void writeData(void){
+    //i2c_master_transmit(tool_bus_handle,)
+
+}
+
+void readData(void){
+    
 }
