@@ -5,4 +5,5 @@ idf_component_register(SRCS "cpuLedInterfaceDescriptor.c" "cpuLedInterface.c" "c
                         "../interface/include"
                         "$ENV{IDF_PATH}/components/esp_event/include"
                         "$ENV{IDF_PATH}/components/esp_driver_gpio/include"
+                        PRIV_REQUIRES fatfs esp_driver_i2c driver
                         )

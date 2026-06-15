@@ -3,6 +3,7 @@ idf_component_register(SRCS "i2cInterfaceDescriptor.c" "i2cTools.c" "i2cInterfac
                         "../charUtils/include" 
                         "../uartCommand/include"
                         "../interface/include"
+                        "../cmos/include"
                         "$ENV{IDF_PATH}/components/esp_event/include"
                         "$ENV{IDF_PATH}/components/console"
                         "$ENV{IDF_PATH}/components/esp_driver_gpio/include"
