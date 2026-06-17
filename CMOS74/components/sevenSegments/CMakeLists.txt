@@ -3,6 +3,5 @@ idf_component_register(SRCS "sevenSegmentsInterfaceDescriptor.c" "sevenSegmentsI
                         "../charUtils/include" 
                         "../uartCommand/include"
                         "../interface/include"
-                        "$ENV{IDF_PATH}/components/esp_event/include"
-                        "$ENV{IDF_PATH}/components/esp_driver_gpio/include"
+                        REQUIRES driver esp_event esp_driver_gpio
                         )

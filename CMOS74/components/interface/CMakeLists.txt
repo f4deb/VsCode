@@ -11,8 +11,6 @@ INCLUDE_DIRS "include"
 			"../cpuLed/include/" 
             "../i2c/include/"
             "../cmos/include"
-            "$ENV{IDF_PATH}/components/nvs_flash/include"
-            "$ENV{IDF_PATH}/components/esp_event/include"
-            "$ENV{IDF_PATH}/components/esp_partition/include"
-            PRIV_REQUIRES  driver
+            "../cmos/include"
+            PRIV_REQUIRES  driver esp_partition esp_event nvs_flash
             )
