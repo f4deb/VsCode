@@ -14,6 +14,7 @@
 #include "../cpuLed/include/cpuLed.h"
 #include "../cpuLed/include/cpuLedInterface.h"
 //#include "../clock/include/clockInterface.h"
+#include "../eeprom/include/eepromInterface.h"
 //#include "../8IoButtonBoard/include/8IoButtonBoardInterface.h"
 //#include "../Oled/include/OledInterface.h"
 #include "../i2c/include/i2cInterface.h"
@@ -56,6 +57,10 @@ void interface_task(void *arg){
                 // I2C
                 else if ((strcmp(I2C_INTERFACE_HEADER,str)) == 0) {
                     i2cInterface(rxBuffer+5);
+                }      
+                // EEPROM
+                else if ((strcmp(EEPROM_INTERFACE_HEADER,str)) == 0) {
+                    eepromInterface(rxBuffer+5);
                 }       
                 /*        
                 // Oled

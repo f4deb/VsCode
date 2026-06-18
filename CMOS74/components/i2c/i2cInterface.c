@@ -15,10 +15,6 @@
 #include "../interface/include/interface.h"
 #include "../interface/include/interfaceDescriptor.h"
 
-#include "../uartCommand/include/uartCommand.h"
-
-#include "../../../../esp-idf/components/esp_driver_uart/include/driver/uart.h"
-
 #define TAG "I2C Interface"
 
 void i2cInterface(char rxBuffer[50]){

@@ -10,9 +10,7 @@
 #include "../charUtils/include/charUtils.h"
 #include "../uartUtils/include/uartUtils.h"
 
-#include "../cmos/include/i2cEeprom.h"
-#include "../cmos/include/saa1064.h"
-
+#include "../driverCmos/eeprom/include/i2cEeprom.h"
 
 #define I2C_TOOL_TIMEOUT_VALUE_MS (50)
 #define ESP_I2C_PORT I2C_NUM_0
@@ -23,15 +21,10 @@
 
 static uint32_t i2c_frequency = 100 * 1000;
 static const char *TAG = "i2ctools";
-static i2c_master_bus_handle_t tool_bus_handle; //static i2c_master_bus_handle_t i2c_handle = NULL;
+static i2c_master_bus_handle_t i2c1_bus_handle; //static i2c_master_bus_handle_t i2c_handle = NULL;
 static i2c_master_bus_config_t i2c_bus_config;
 
 static i2c_eeprom_handle_t eeprom_handle;
-
-static i2c_master_bus_handle_t bus_handle;
-
-
-
 
 static void disp_buf(uint8_t *buf, int len)
 {
@@ -59,7 +52,7 @@ static void disp_buf(uint8_t *buf, int len)
 
 
 i2c_master_bus_handle_t getI2cBus (void){
-    return tool_bus_handle;
+    return i2c1_bus_handle;
 }
     
 /**
@@ -77,7 +70,7 @@ uint8_t I2cBusInit(void){
         .flags.enable_internal_pullup = true,
     };
 
-    ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_config, &tool_bus_handle));
+    ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_config, &i2c1_bus_handle));
 
 
         i2c_eeprom_config_t eeprom_config = {
@@ -94,7 +87,14 @@ uint8_t I2cBusInit(void){
         buf[i] = i;
     }
     uint8_t read_buf[LENGTH];
-    //ESP_ERROR_CHECK(i2c_eeprom_init(bus_handle, &eeprom_config, &eeprom_handle));
+    ESP_ERROR_CHECK(i2c_eeprom_init(i2c1_bus_handle, &eeprom_config, &eeprom_handle));
+
+
+
+
+
+
+
 
 
     return 0;
@@ -123,7 +123,7 @@ void i2cDetect(void)
         for (int j = 0; j < 16; j++) {
             fflush(stdout);
             address = i + j;
-            esp_err_t ret = i2c_master_probe(tool_bus_handle, address, I2C_TOOL_TIMEOUT_VALUE_MS);
+            esp_err_t ret = i2c_master_probe(i2c1_bus_handle, address, I2C_TOOL_TIMEOUT_VALUE_MS);
             if (ret == ESP_OK) {
                 printf("%02x ", address);
                 sprintf(str,"%02x ", address);
