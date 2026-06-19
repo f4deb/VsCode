@@ -10,6 +10,7 @@
 #include "esp_log.h"
 
 #include "../charUtils/include/charUtils.h"
+#include "../driverCmos/eeprom/include/i2cEeprom.h"
 #include "../uartUtils/include/uartUtils.h"
 
 #include "../interface/include/interface.h"
@@ -34,7 +35,20 @@ void eepromInterface(char rxBuffer[50]){
     rxBuffer++;        
     
     if ((strcmp(EEPROM_WRITE_HEADER,str)) == 0) {
-        //eepromDetect();
+
+        uint8_t LENGTH = 48;
+        uint32_t block_addr = 0x0010;
+        uint8_t buf[LENGTH];
+        for (int i = 0; i < LENGTH; i++) {
+            buf[i] = i;
+        }
+        uint8_t read_buf[LENGTH];
+        //ESP_ERROR_CHECK(i2c_eeprom_write(eeprom_handle, block_addr, buf, LENGTH));
+
+
+
+
+
         if (EEPROM_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
     }
     else if ((strcmp(EEPROM_HELP_HEADER,str)) == 0) {

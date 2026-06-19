@@ -38,19 +38,6 @@ static void disp_buf(uint8_t *buf, int len)
     printf("\n");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 i2c_master_bus_handle_t getI2cBus (void){
     return i2c1_bus_handle;
 }
