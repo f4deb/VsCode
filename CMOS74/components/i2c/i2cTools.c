@@ -16,8 +16,6 @@
 #define ESP_I2C_PORT I2C_NUM_0
 #define ESP_I2C_SDA  GPIO_NUM_21
 #define ESP_I2C_SCL  GPIO_NUM_22
-#define LENGTH 48
-#define MASTER_FREQUENCY_400 400000
 
 static uint32_t i2c_frequency = 100 * 1000;
 static const char *TAG = "i2ctools";
@@ -26,20 +24,16 @@ static i2c_master_bus_config_t i2c_bus_config;
 
 static i2c_eeprom_handle_t eeprom_handle;
 
-static void disp_buf(uint8_t *buf, int len)
-{
-    int i;
-    for (i = 0; i < len; i++) {
-        printf("%02x ", buf[i]);
-        if ((i + 1) % 16 == 0) {
-            printf("\n");
-        }
-    }
-    printf("\n");
-}
+
+
+
 
 i2c_master_bus_handle_t getI2cBus (void){
     return i2c1_bus_handle;
+}
+
+i2c_eeprom_handle_t getEepromHandle(void){
+    return eeprom_handle;
 }
     
 /**
@@ -59,28 +53,7 @@ uint8_t I2cBusInit(void){
 
     ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_config, &i2c1_bus_handle));
 
-
-        i2c_eeprom_config_t eeprom_config = {
-        .eeprom_device.scl_speed_hz = MASTER_FREQUENCY_400,
-        .eeprom_device.device_address = 0x50,
-        .addr_wordlen = 2,
-        .write_time_ms = 10,
-    };
-
-
-    uint32_t block_addr = 0x0010;
-    uint8_t buf[LENGTH];
-    for (int i = 0; i < LENGTH; i++) {
-        buf[i] = i;
-    }
-    uint8_t read_buf[LENGTH];
-    ESP_ERROR_CHECK(i2c_eeprom_init(i2c1_bus_handle, &eeprom_config, &eeprom_handle));
-
-
-
-
-
-
+    //eepromInit();
 
 
 
