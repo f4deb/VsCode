@@ -3,7 +3,7 @@
 
 #include "../../charUtils/include/charUtils.h"
 
-#define EEPROM_INTERFACE_DEBUG 0
+#define EEPROM_INTERFACE_DEBUG 1
 
 #define EEPROM_INTERFACE_HEADER_NAME "EEPROM"
 
@@ -13,6 +13,7 @@
 #define EEPROM_INTERFACE_COMMAND_SIZE 1
 
 #define EEPROM_WRITE_HEADER "w"
+#define EEPROM_SET_ADDRESSE_HEADER "a"
 #define EEPROM_READ_HEADER "r"
 #define EEPROM_HELP_HEADER "h"
 

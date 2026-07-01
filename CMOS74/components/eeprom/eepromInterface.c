@@ -34,13 +34,40 @@ void eepromInterface(char rxBuffer[50]){
     if (EEPROM_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
  
     rxBuffer++;        
-    
+
+
     if ((strcmp(EEPROM_WRITE_HEADER,str)) == 0) {
+        uint8_t buf[16];
+
+
+        buf[0] = readHex(stringToString(str,rxBuffer,2));
+        rxBuffer++;        
+        rxBuffer++;       
+        writeEeprom(buf, 0,1);
+        
+        buf[0] = readHex(stringToString(str,rxBuffer,2));
+        rxBuffer++;        
+        rxBuffer++;       
+        writeEeprom(buf, 1,1);
 
 
 
         if (EEPROM_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
     }
+    else if ((strcmp(EEPROM_READ_HEADER,str)) == 0) {
+        // traitement      
+        readEeprom();
+    }
+    else if ((strcmp(EEPROM_SET_ADDRESSE_HEADER,str)) == 0) {
+        // Lecture 0 paramètre
+
+        // traitement      
+        setBlockAddr(readHex(stringToString(str,rxBuffer,4)));
+        rxBuffer++;        
+        rxBuffer++;         
+        rxBuffer++;        
+        rxBuffer++; 
+    }    
     else if ((strcmp(EEPROM_HELP_HEADER,str)) == 0) {
         // Lecture 0 paramètre
 

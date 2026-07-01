@@ -7,12 +7,13 @@ idf_component_register(SRCS "interface.c"
                             "../i2c/i2cInterface.c"      
                             "../driverCmos/eeprom/i2cEeprom.c" 
                             "../eeprom/eepromInterface.c"                  
-                            "../eeprom/eepromInterfaceDescriptor.c"                  
+                            "../eeprom/eepromInterfaceDescriptor.c"         
+                            "../eeprom/eepromTools.c"        
 INCLUDE_DIRS "include" 
             "../charUtils/include"
 			"../cpuLed/include/" 
             "../i2c/include/"
             "../driverCmos/eeprom/include"
             "../eeprom/include"
-            PRIV_REQUIRES  driver esp_partition esp_event nvs_flash
+PRIV_REQUIRES  driver esp_partition esp_event nvs_flash
             )

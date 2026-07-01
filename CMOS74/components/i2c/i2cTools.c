@@ -11,6 +11,7 @@
 #include "../uartUtils/include/uartUtils.h"
 
 #include "../driverCmos/eeprom/include/i2cEeprom.h"
+#include "../eeprom/include/eepromTools.h"
 
 #define I2C_TOOL_TIMEOUT_VALUE_MS (50)
 #define ESP_I2C_PORT I2C_NUM_0
@@ -53,7 +54,7 @@ uint8_t I2cBusInit(void){
 
     ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_config, &i2c1_bus_handle));
 
-    //eepromInit();
+    eepromInit();
 
 
 

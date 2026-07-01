@@ -6,7 +6,6 @@
 #include "../../i2c/include/i2cTools.h"
 
 #define MASTER_FREQUENCY_400 400000
-#define LENGTH (int)48
 
 
 uint8_t I2cBusInit(void);
