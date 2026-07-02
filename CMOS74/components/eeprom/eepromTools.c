@@ -18,6 +18,7 @@ int LENGTH = 48;
 static uint8_t write_buf[];
 static uint8_t read_buf[];
 static uint32_t block_addr = 0;
+static uint8_t block_size = 0;
 
 static i2c_eeprom_handle_t eeprom_handle;
 
@@ -44,6 +45,10 @@ unsigned char* getWriteBuffer(void){
 
 void setBlockAddr(uint32_t addr){
     block_addr = addr;
+}
+
+void setBlockSize(uint8_t size){
+    block_size = size;
 }
 
 void  eepromInit(void){

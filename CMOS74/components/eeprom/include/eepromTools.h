@@ -10,6 +10,6 @@ void readEeprom(void);
 unsigned char* getReadBuffer(void);
 unsigned char* getWriteBuffer(void);
 void setBlockAddr(uint32_t addr);
-
+void setBlockSize(uint8_t size);
 
 #endif

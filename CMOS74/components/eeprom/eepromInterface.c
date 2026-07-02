@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <string.h>
 #include "eepromTools.h"
@@ -15,6 +16,7 @@
 #include "../uartUtils/include/uartUtils.h"
 
 #include "../interface/include/interface.h"
+#include "../interface/include/constants.h"
 #include "../interface/include/interfaceDescriptor.h"
 
 #include "../uartCommand/include/uartCommand.h"
@@ -23,10 +25,18 @@
 
 #define TAG "EEPROM Interface"
 
-void eepromInterface(char rxBuffer[50]){
+static char str[EEPROM_INTERFACE_COMMAND_SIZE];
 
-    char str[EEPROM_INTERFACE_COMMAND_SIZE];
-    char status[20];
+
+int serparator(char rxsBuffer[2]){
+    if ((readHex(rxsBuffer)) != SEPARATOR){
+        return -1;
+    }
+    return 0;
+}
+
+int eepromInterface(char rxBuffer[50]){
+
     if (EEPROM_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", rxBuffer);
 
     stringToString(str,rxBuffer, EEPROM_INTERFACE_COMMAND_SIZE);
@@ -36,8 +46,36 @@ void eepromInterface(char rxBuffer[50]){
     rxBuffer++;        
 
 
-    if ((strcmp(EEPROM_WRITE_HEADER,str)) == 0) {
+    if ((strcmp(EEPROM_BLOCK_WRITE_HEADER,str)) == 0) {
+
+        /* Format : 
+        * jk+eeW
+        * Address   : HEX4 
+        * Separator : SEPARATOR
+        * Size      : HEX2
+        * Separator : SEPARATOR
+        * Data buff : XX
+        * 
+        * Maximumdata to transfert : 16 bytes.
+        */
         uint8_t buf[16];
+
+        setBlockAddr(readHex(stringToString(str,rxBuffer,4)));
+        rxBuffer++;        
+        rxBuffer++;         
+        rxBuffer++;        
+        rxBuffer++; 
+
+        if (!serparator(rxBuffer)){
+            ESP_LOGE(TAG, "Code Erreur : Separator not detected");
+            return -1;
+        }
+        rxBuffer++; 
+
+        
+
+
+
 
 
         buf[0] = readHex(stringToString(str,rxBuffer,2));
@@ -49,6 +87,7 @@ void eepromInterface(char rxBuffer[50]){
         rxBuffer++;        
         rxBuffer++;       
         writeEeprom(buf, 1,1);
+
 
 
 
@@ -77,4 +116,5 @@ void eepromInterface(char rxBuffer[50]){
     else {
         ESP_LOGE(TAG, "Bad command");
     }
+    return 0;
 }

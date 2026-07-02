@@ -8,4 +8,6 @@
 /** Header for System Device. */
 #define SYSTEM_DEVICE_HEADER          "SY"
 
+#define SEPARATOR '-'
+
 #endif

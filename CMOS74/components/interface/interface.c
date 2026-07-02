@@ -24,6 +24,15 @@
 
 const char *interfaceHeader = "jk+";
 
+const char* interface_err_to_name(esp_err_t err) {
+    switch (err) {
+        case ESP_ERR_NO_SEPARATOR:     return "ESP_ERR_SEPARATOR_MISSED";
+//        case ESP_ERR_MOTEUR_SURCHAUFFE: return "ESP_ERR_MOTEUR_SURCHAUFFE";
+        default:                        return esp_err_to_name(err); // Erreurs standards ESP-IDF
+    }
+}
+
+
 void interface_task(void *arg){
     char rxBuffer[BUF_SIZE];
     char str[INTERFACE_HEADER_SIZE];
