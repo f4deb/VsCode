@@ -21,8 +21,8 @@ void eepromInterfaceDescriptor(void){
     printDeviceLine();
     printHelpTitle(INTERFACE_HEADER, EEPROM_INTERFACE_HEADER,"     ", EEPROM_INTERFACE_HEADER_NAME);
     printDeviceLine();
-    printTableBLine("help : h","input : 0","Ouput : 0 "," ");
+    printTableBLine("help               : h","input : 0","Ouput : 0 "," ");
     printTableBlank();
-    printTableBLine("detect : c","input : 0","Ouput : 0 "," "); 
+    printTableBLine("Write Block EEPROM : W","input : 18","Ouput : 2 "," "); 
     printDeviceStar();
 }

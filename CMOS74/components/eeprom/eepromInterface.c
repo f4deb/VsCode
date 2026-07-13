@@ -72,22 +72,16 @@ int eepromInterface(char rxBuffer[50]){
         }
         rxBuffer++; 
 
-        
-
-
-
-
-
         buf[0] = readHex(stringToString(str,rxBuffer,2));
         rxBuffer++;        
         rxBuffer++;       
-        writeEeprom(buf, 0,1);
-        
-        buf[0] = readHex(stringToString(str,rxBuffer,2));
+        //writeEeprom(buf, 0,1);
+         ESP_LOGE(TAG, "%s ", buf);
+       /*buf[0] = readHex(stringToString(str,rxBuffer,2));
         rxBuffer++;        
         rxBuffer++;       
         writeEeprom(buf, 1,1);
-
+        */
 
 
 
