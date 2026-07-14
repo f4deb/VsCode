@@ -46,47 +46,13 @@
 
 static const char *TAG= "Main : ";
 
-#define LED_1_GPIO 2
-#define LED_2_GPIO 4
-#define LED_3_GPIO 5
-#define LED_4_GPIO 12
-
 #define GPIO_OUTPUT_PIN_SEL ((1ULL<<LED_1_GPIO)|(1ULL<<LED_2_GPIO)|(1ULL<<LED_3_GPIO)|(1ULL<<LED_4_GPIO))
 
-typedef struct {
-    gpio_num_t gpio_pi;
-    uint32_t delay_ms;
-    const char *led_name;
-    } led_config_t;
-
-static led_config_t my_leds[] = {
-    {.gpio_pi = LED_1_GPIO, .delay_ms = 200, .led_name = "LedRouge1"},
-    {.gpio_pi = LED_2_GPIO, .delay_ms = 500, .led_name = "LedVert1"},
-    {.gpio_pi = LED_3_GPIO, .delay_ms = 1000, .led_name = "LedRouge2"},
-    {.gpio_pi = LED_4_GPIO, .delay_ms = 5000, .led_name = "LedVert2"}
-};
-
-
-void led_blink_task(void *pvParameters){
-    led_config_t *config = (led_config_t*)pvParameters;
-
-    ESP_LOGI(TAG, "Démarrage de la tâche pour %s sur le GPIO %d (Vitesse : %ld ms)", 
-             config->led_name, config->gpio_pin, config->delay_ms);
-    
-    while (1){
-        gpio_set_level(config->gpio_pi,1);
-        vTaskDelay(pdMS_TO_TICKS(config->delay_ms));
-
-        gpio_set_level(config->gpio_pi,0);
-        vTaskDelay(pdMS_TO_TICKS(config->delay_ms));
-    }
-    vTaskDelete(NULL);
-}    
 
 void init(){
 
     /* Configure the peripheral according to the LED type */
-    configure_led();
+    //configure_led();
 
     I2cBusInit();  
 
@@ -111,27 +77,27 @@ void init(){
                 NULL);
   
     xTaskCreate(led_blink_task, 
-                "Cpu Led1 Task", 
+                "Cpu Led vert 1 Task", 
                 COMMAND_TASK_STACK_SIZE, 
-                &my_leds[0],
+                get_my_leds(0),
                 5, 
                 NULL); 
     xTaskCreate(led_blink_task, 
-                "Cpu Led2 Task", 
+                "Cpu Led rouge 1 Task", 
                 COMMAND_TASK_STACK_SIZE, 
-                &my_leds[1],
+                get_my_leds(1),
                 5, 
                 NULL);    
     xTaskCreate(led_blink_task, 
                 "Cpu Led3 Task", 
                 COMMAND_TASK_STACK_SIZE, 
-                &my_leds[2],
+                get_my_leds(2),
                 5, 
                 NULL);              
     xTaskCreate(led_blink_task, 
                 "Cpu Led4 Task", 
                 COMMAND_TASK_STACK_SIZE, 
-                &my_leds[3],
+                get_my_leds(3),
                 5, 
                 NULL);                 
 /*
@@ -163,9 +129,4 @@ void init(){
 void app_main(void){
     init();
     i2cDetect();
-    
-    //   Blink Task
-    while (1) {
-        //printCpuLed();
-    }
 }
