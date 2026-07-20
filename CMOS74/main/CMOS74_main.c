@@ -46,7 +46,7 @@
 
 static const char *TAG= "Main : ";
 
-#define GPIO_OUTPUT_PIN_SEL ((1ULL<<LED_1_GPIO)|(1ULL<<LED_2_GPIO)|(1ULL<<LED_3_GPIO)|(1ULL<<LED_4_GPIO))
+#define GPIO_OUTPUT_PIN_SEL ((1ULL<<LED1_GREEN_GPIO)|(1ULL<<LED1_RED_GPIO)|(1ULL<<LED2_GREEN_GPIO)|(1ULL<<LED2_RED_GPIO))
 
 
 void init(){
@@ -73,7 +73,7 @@ void init(){
                 "uart_command_task", 
                 COMMAND_TASK_STACK_SIZE, 
                 NULL,
-                2, 
+                6, 
                 NULL);
   
     xTaskCreate(led_blink_task, 
@@ -122,7 +122,7 @@ void init(){
                 "interface_task",
                 INTERFACE_TASK_STACK_SIZE,
                 NULL,
-                3,
+                4,
                 NULL);    
 }
 

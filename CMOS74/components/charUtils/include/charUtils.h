@@ -1,6 +1,8 @@
 #ifndef CHAR_UTILS_H
 #define CHAR_UTILS_H
 
+#include <stdint.h>
+
 #define CR 0x0D
 #define LF 0x0A
 
@@ -14,6 +16,8 @@ int readHex(char* str);
 
 int readDec(char* str);
 
+char readChar(char* str);
 
+uint8_t readSeparator(char* str);
 
 #endif

@@ -50,3 +50,26 @@ int readDec(char* str) {
     }
     return result;
 }
+
+char readChar(char* str) {
+    char result;
+    if (sscanf(str, "%c", &result) ==1) {
+         //ESP_LOGE(TAG, "Converted integer: %d\n", result);
+    }
+    else {
+        ESP_LOGE(TAG, "Conversion failed.\n");
+    }
+    return result;
+}
+
+uint8_t readSeparator(char* str) {
+    char result = 0;
+    if (sscanf(str, "%c", &result) ==1) {
+         //ESP_LOGE(TAG, "Converted integer: %d\n", result);
+    }
+    else {
+        ESP_LOGE(TAG, "Conversion failed.\n");
+        result = -1;
+    }
+    return result;
+}

@@ -31,5 +31,6 @@
     "regex": "c"
   },
     "idf.flashType": "UART",
-    "idf.port": "/dev/ttyUSB0"
+    "idf.port": "/dev/ttyUSB0",
+    "idf.currentSetup": "/home/f4deb/esp/v5.4/esp-idf"
 }
