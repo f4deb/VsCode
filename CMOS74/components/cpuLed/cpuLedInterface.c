@@ -39,7 +39,7 @@ void cpuLedInterface(char rxBuffer[50]){
     stringToString(str,rxBuffer, CPU_LED_INTERFACE_COMMAND_SIZE);
     if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
     rxBuffer++;        
-   
+ 
     if ((strcmp(SET_RATIO_BLINK_HEADER,str)) == 0) {
         // Lecture 3 paramètres
         ledNumber = readHex(stringToString(str,rxBuffer,2));
@@ -67,36 +67,67 @@ void cpuLedInterface(char rxBuffer[50]){
         uartDataBackLF(status);
 
     }
+
+
+
+ else if ((strcmp(GET_CPU_LED_NAME_HEADER,str)) == 0) {
+        char *name;
+        // Lecture Index led
+
+        
+
+        value8 = readSeparator(stringToString(str,rxBuffer,1));
+        rxBuffer++; 
+
+
+        if ( value8 < 0 ) value8 = 0;                
+        if ( value8 > 3 ) value8 = 3;
+
+        indexLed = readHex(stringToString(str,rxBuffer,2));
+        rxBuffer++;        
+        rxBuffer++;     
+
+        // traitement
+        led_config_t *config = get_my_leds(indexLed);
+        name = config->led_name;
+        if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s",name);
+
+        stringToString(status, name,strlen(name));
+        
+        uartDataBackCR(status);
+    }
+
+
+
+
+
+
     else if ((strcmp(SET_TIME_BLINK_HEADER,str)) == 0) {
         
-        if ((strcmp(SET_TIME_BLINK_HEADER,str)) == 0) {
-            // Lecture Index led
+        // Lecture Index led
 
-            value8 = readSeparator(stringToString(str,rxBuffer,1));
-                        ESP_LOGE(TAG, "%c ", value8);
+        value8 = readSeparator(stringToString(str,rxBuffer,1));
+        rxBuffer++; 
 
-            rxBuffer++; 
+        indexLed = readHex(stringToString(str,rxBuffer,2));
+        rxBuffer++;        
+        rxBuffer++;     
 
-            indexLed = readHex(stringToString(str,rxBuffer,2));
-            rxBuffer++;        
-            rxBuffer++;     
+        value8 = readSeparator(stringToString(str,rxBuffer,1));
+        rxBuffer++;    
 
-            value8 = readSeparator(stringToString(str,rxBuffer,1));
-            rxBuffer++;    
+        value32 = readDec(stringToString(str,rxBuffer,4));
+        rxBuffer++;
+        rxBuffer++;
+        rxBuffer++;
+        rxBuffer++;
 
-            value32 = readDec(stringToString(str,rxBuffer,4));
-            rxBuffer++;
-            rxBuffer++;
-            rxBuffer++;
-            rxBuffer++;
-                
-            // traitement
-            led_config_t *config = get_my_leds(indexLed);
-
-            config->delay_ms = value32;
-            ESP_LOGE(TAG, "%s ", rxBuffer);
-        }
-
+        if ( value32 < 100 ) value32 = 100;                
+        if ( value32 > 10000 ) value32 = 10000;
+        // traitement
+        led_config_t *config = get_my_leds(indexLed);
+        config->delay_ms = value32;
+        
         uartDataBackLF(status);
     }
     else if ((strcmp(SET_CPU_LED_HEADER,str)) == 0) {

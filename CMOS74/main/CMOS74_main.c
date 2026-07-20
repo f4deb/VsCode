@@ -80,25 +80,25 @@ void init(){
                 "Cpu Led vert 1 Task", 
                 COMMAND_TASK_STACK_SIZE, 
                 get_my_leds(0),
-                5, 
+                2, 
                 NULL); 
     xTaskCreate(led_blink_task, 
                 "Cpu Led rouge 1 Task", 
                 COMMAND_TASK_STACK_SIZE, 
                 get_my_leds(1),
-                5, 
+                2, 
                 NULL);    
     xTaskCreate(led_blink_task, 
                 "Cpu Led3 Task", 
                 COMMAND_TASK_STACK_SIZE, 
                 get_my_leds(2),
-                5, 
+                2, 
                 NULL);              
     xTaskCreate(led_blink_task, 
                 "Cpu Led4 Task", 
                 COMMAND_TASK_STACK_SIZE, 
                 get_my_leds(3),
-                5, 
+                2, 
                 NULL);                 
 /*
     // CLOCK Task

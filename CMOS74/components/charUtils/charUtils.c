@@ -63,9 +63,11 @@ char readChar(char* str) {
 }
 
 uint8_t readSeparator(char* str) {
-    char result = 0;
-    if (sscanf(str, "%c", &result) ==1) {
-         //ESP_LOGE(TAG, "Converted integer: %d\n", result);
+    char result = '-';
+    if (sscanf(str, "%c", &result) == 1) {
+        result = 0;
+        //ESP_LOGE(TAG, "Converted integer: %d", result);
+
     }
     else {
         ESP_LOGE(TAG, "Conversion failed.\n");

@@ -38,3 +38,12 @@ void uartDataBack(char status[50]){
         // Write data back to the UART
         uart_write_bytes(COMMAND_UART_PORT_NUM, status, strlen(status));
 }
+
+void uartDataBackCR(char status[50]){
+
+        // Write data back to the UART
+        uart_write_bytes(COMMAND_UART_PORT_NUM, status, strlen(status));
+        status [0] = CR;
+        status [1] = '\0';
+        uart_write_bytes(COMMAND_UART_PORT_NUM, status, strlen(status));
+}
