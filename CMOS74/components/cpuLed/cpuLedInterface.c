@@ -80,16 +80,20 @@ void cpuLedInterface(char rxBuffer[50]){
         rxBuffer++; 
 
 
-        if ( value8 < 0 ) value8 = 0;                
-        if ( value8 > 3 ) value8 = 3;
+        if ( value8  > 3 ) {
+            name = "Format command error";
+                        return;
 
-        indexLed = readHex(stringToString(str,rxBuffer,2));
+        }                
+        else {
+            indexLed = readHex(stringToString(str,rxBuffer,2));
+               
+             // traitement
+            led_config_t *config = get_my_leds(indexLed);
+            name = config->led_name;
+        }
         rxBuffer++;        
-        rxBuffer++;     
-
-        // traitement
-        led_config_t *config = get_my_leds(indexLed);
-        name = config->led_name;
+        rxBuffer++;  
         if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s",name);
 
         stringToString(status, name,strlen(name));
