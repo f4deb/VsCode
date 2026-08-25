@@ -14,7 +14,7 @@
 #define TAG "Interface Descriptor"
 
 
-    char str[50] = "TOTO";
+    char str[50] = "interface descriptor";
 
 void printDeviceLine(void){
     sprintf(str,"|" );

@@ -26,10 +26,10 @@ void led_blink_task(void *pvParameters){
     
     while (1){
         gpio_set_level(config->gpio_pin,1);
-        vTaskDelay(pdMS_TO_TICKS(config->delay_ms));
+        vTaskDelay(pdMS_TO_TICKS((config->delay_ms)*(100-(config->ratio_ms))/100));
 
         gpio_set_level(config->gpio_pin,0);
-        vTaskDelay(pdMS_TO_TICKS(config->delay_ms));
+        vTaskDelay(pdMS_TO_TICKS((config->delay_ms)*config->ratio_ms/100));
     }
     vTaskDelete(NULL);
 }    

@@ -63,15 +63,10 @@ char readChar(char* str) {
 }
 
 uint8_t readSeparator(char* str) {
-    char result = '-';
-    if (sscanf(str, "%c", &result) == 1) {
-        result = 0;
-        //ESP_LOGE(TAG, "Converted integer: %d", result);
+        ESP_LOGE(TAG, "readseparator %s", str);
+    int value = str[0];
 
-    }
-    else {
-        ESP_LOGE(TAG, "Conversion failed.\n");
-        result = -1;
-    }
-    return result;
+            ESP_LOGE(TAG, "readvalue %X", value);
+
+    return 0;
 }

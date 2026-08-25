@@ -26,16 +26,21 @@ void cpuLedInterfaceDescriptor(void){
     printDeviceLine();
     printTableBLine("help : h","input : 0","Ouput : 0 "," ");
     printTableBlank();
-    printTableBLine("blink : b","input : 6","Ouput : 2 "," ");
-    printTableBLine("Led Selection","        HEX2"," "," ");
-    printTableBLine("Color Selection","        HEX2"," "," ");
-    printTableBLine("Ratio Value","        HEX2"," "," ");
+    printTableBLine("Name  : n","input : 3","Ouput : Text "," ");
+    printTableBLine("Led index ","        HEX2"," "," ");
+    printTableBLine("Name","            "," Text"," ");
     printTableBLine("code Error"," ","        HEX2"," ");
     printTableBlank();
     printTableBLine("Time : t","input : 8","Ouput : 2 "," ");
     printTableBLine("Led Selection","        HEX2"," "," ");
-    printTableBLine("Color Selection","        HEX2"," "," ");
+    printTableBLine("Separator ","        HEX1"," "," ");
     printTableBLine("Time Value","        DEC4"," "," ");
+    printTableBLine("code Error"," ","        HEX2"," ");
+    printTableBlank();
+    printTableBLine("Blink : b","input : 8","Ouput : 2 "," ");
+    printTableBLine("Led Selection","        HEX2"," "," ");
+    printTableBLine("Separator ","        HEX1"," "," ");
+    printTableBLine("Ratio Value","        DEC3"," "," ");
     printTableBLine("code Error"," ","        HEX2"," ");
     printTableBlank();
     printTableBLine("Set Led : w","input : 6","Ouput : 2 "," ");
@@ -49,5 +54,5 @@ void cpuLedInterfaceDescriptor(void){
     printTableBLine("Color Selection","        HEX2"," "," ");
     printTableBLine("Led Statut"," ","        HEX2"," ");
     printTableBLine("code Error"," ","        HEX2"," ");          
-    printDeviceStar();
+    printDeviceLine();
 }

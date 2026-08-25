@@ -39,80 +39,32 @@ void cpuLedInterface(char rxBuffer[50]){
     stringToString(str,rxBuffer, CPU_LED_INTERFACE_COMMAND_SIZE);
     if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
     rxBuffer++;        
- 
+   
     if ((strcmp(SET_RATIO_BLINK_HEADER,str)) == 0) {
-        // Lecture 3 paramètres
-        ledNumber = readHex(stringToString(str,rxBuffer,2));
+        // Lecture Index led
+        indexLed = readHex(stringToString(str,rxBuffer,2));
         rxBuffer++;        
-        rxBuffer++;        
+        rxBuffer++;     
 
-        ledColor = readHex(stringToString(str,rxBuffer,2));
-        rxBuffer++;        
-        rxBuffer++;        
+        value8 = readSeparator(stringToString(str,rxBuffer,1));
+        rxBuffer++;    
 
-        value8 = readDec(stringToString(str,rxBuffer,2));
-      
+        value8 = readDec(stringToString(str,rxBuffer,3));
+        rxBuffer++;
+        rxBuffer++;
+        rxBuffer++;
+
         // traitement
-        if (ledNumber == LED1_RED_GPIO){
-            //setRatioBlink(getLed1(),ledColor,value8);
-        }
-        else if (ledNumber == LED1_GREEN_GPIO){
-            //setRatioBlink(getLed2(),ledColor,value8);
-        }
-        else {
-            if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "Invalid Led number");
-            //s_led_state= 0x99;
-        }        
-
+        led_config_t *config = get_my_leds(indexLed);
+        config->ratio_ms = value8;
+        
         uartDataBackLF(status);
 
     }
 
-
-
- else if ((strcmp(GET_CPU_LED_NAME_HEADER,str)) == 0) {
-        char *name;
-        // Lecture Index led
-
-        
-
-        value8 = readSeparator(stringToString(str,rxBuffer,1));
-        rxBuffer++; 
-
-
-        if ( value8  > 3 ) {
-            name = "Format command error";
-                        return;
-
-        }                
-        else {
-            indexLed = readHex(stringToString(str,rxBuffer,2));
-               
-             // traitement
-            led_config_t *config = get_my_leds(indexLed);
-            name = config->led_name;
-        }
-        rxBuffer++;        
-        rxBuffer++;  
-        if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s",name);
-
-        stringToString(status, name,strlen(name));
-        
-        uartDataBackCR(status);
-    }
-
-
-
-
-
-
     else if ((strcmp(SET_TIME_BLINK_HEADER,str)) == 0) {
         
         // Lecture Index led
-
-        value8 = readSeparator(stringToString(str,rxBuffer,1));
-        rxBuffer++; 
-
         indexLed = readHex(stringToString(str,rxBuffer,2));
         rxBuffer++;        
         rxBuffer++;     
@@ -164,6 +116,60 @@ void cpuLedInterface(char rxBuffer[50]){
 
         uartDataBackLF(status);
     }
+
+ else if ((strcmp(GET_CPU_LED_NAME_HEADER,str)) == 0) {
+
+
+        value8 = readSeparator(stringToString(str,rxBuffer,1));
+        rxBuffer++; 
+
+
+        if (value8 == 0){
+                    ESP_LOGE(TAG, "%s",str);
+                                        ESP_LOGE(TAG,"result1 %d", value8);
+
+        }    
+        else {
+        ESP_LOGE(TAG, "format error");
+                                        ESP_LOGE(TAG,"result2 %X", value8);
+        }
+    
+    char *name = "toto";
+    /*
+        // Lecture Index led
+        value8 = readSeparator(stringToString(str,rxBuffer,1));
+        rxBuffer++; 
+
+        if ( value8  != 0 ) {
+            name = "Format command error";
+                    ESP_LOGE(TAG, "%s",name);
+
+                        return;
+        }                
+        else {
+            indexLed = readHex(stringToString(str,rxBuffer,2));
+               
+             // traitement
+            led_config_t *config = get_my_leds(indexLed);
+            name = config->led_name;
+        }
+        rxBuffer++;        
+        rxBuffer++;  
+
+        */
+        if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s",name);
+
+        stringToString(status, name,strlen(name));
+        
+        uartDataBackCR(status);
+    }
+
+
+
+
+
+
+
     else if ((strcmp(GET_CPU_LED_HEADER,str)) == 0) {
         // Lecture 2 paramètres
         ledNumber = readHex(stringToString(str,rxBuffer,2));
