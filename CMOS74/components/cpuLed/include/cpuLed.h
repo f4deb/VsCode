@@ -11,6 +11,7 @@
 #define LED2_RED_GPIO CONFIG_LED2_RED_GPIO
 #define LED2_GREEN_GPIO CONFIG_LED2_GREEN_GPIO
 
+#define INDEXMAX 3
 
 
 typedef struct {

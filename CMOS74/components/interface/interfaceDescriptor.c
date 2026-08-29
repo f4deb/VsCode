@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "interfaceDescriptor.h"
+#include "freertos/idf_additions.h"
 #include "interface.h"
 
 #include "sdkconfig.h"
@@ -25,6 +26,7 @@ void printDeviceLine(void){
     str1="|";
     strncat (str,str1,strlen(str1)+1);
     ESP_LOGE(TAG,"%s",str);
+    vTaskDelay(10);
     uartDataBackLF(str);
 }
 

@@ -88,79 +88,53 @@ void cpuLedInterface(char rxBuffer[50]){
     }
     else if ((strcmp(SET_CPU_LED_HEADER,str)) == 0) {
 
- // Lecture 3 paramètres
-        ledNumber = readHex(stringToString(str,rxBuffer,2));
+ // Lecture Index led
+        indexLed = readHex(stringToString(str,rxBuffer,2));
         rxBuffer++;        
-        rxBuffer++;       
-        ledColor = readHex(stringToString(str,rxBuffer,2));
-        rxBuffer++;        
-        rxBuffer++;        
+        rxBuffer++;     
 
-        value8 = readDec(stringToString(str,rxBuffer,2));
+        value8 = readSeparator(stringToString(str,rxBuffer,1));
+        rxBuffer++;    
 
-        if (value8 > 0){
-            value8 = 99;
+        value8 = readHex(stringToString(str,rxBuffer,2));
+        rxBuffer++;
+        rxBuffer++;
+
+        if (value8 == 0) { 
+            value32 = 0 ;
+        }
+        else if (value8 == 1 ){
+            value32 = 100;
         } 
-      
         // traitement
-        if (ledNumber == LED1_GREEN_GPIO){
-            //setRatioBlink(getLed1(),ledColor,value8);
-        }
-        else if (ledNumber == LED1_GREEN_GPIO){
-            //setRatioBlink(getLed2(),ledColor,value8);
-        }
-        else {
-            if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "Invalid Led number");
-            s_led_state= 0x99;
-        }        
-
+        led_config_t *config = get_my_leds(indexLed);
+        config->ratio_ms = value32;
+        
         uartDataBackLF(status);
+
     }
 
- else if ((strcmp(GET_CPU_LED_NAME_HEADER,str)) == 0) {
-
-
-        value8 = readSeparator(stringToString(str,rxBuffer,1));
-        rxBuffer++; 
-
-
-        if (value8 == 0){
-                    ESP_LOGE(TAG, "%s",str);
-                                        ESP_LOGE(TAG,"result1 %d", value8);
-
-        }    
-        else {
-        ESP_LOGE(TAG, "format error");
-                                        ESP_LOGE(TAG,"result2 %X", value8);
-        }
-    
-    char *name = "toto";
-    /*
+    else if ((strcmp(GET_CPU_LED_NAME_HEADER,str)) == 0) {
+        char *name = "toto";    
         // Lecture Index led
-        value8 = readSeparator(stringToString(str,rxBuffer,1));
-        rxBuffer++; 
-
-        if ( value8  != 0 ) {
-            name = "Format command error";
-                    ESP_LOGE(TAG, "%s",name);
-
-                        return;
+        indexLed = readHex(stringToString(str,rxBuffer,2));
+        if (( indexLed  < 0 ) || ( indexLed  > INDEXMAX )){
+            name = "Format command error ERROR 0x1111";
+            ESP_LOGE(TAG, "%s",name);
+            stringToString(status, name,strlen(name));       
+            uartDataBackCR(status);
+            return;
         }                
-        else {
-            indexLed = readHex(stringToString(str,rxBuffer,2));
-               
-             // traitement
+        else {               
+                // traitement
             led_config_t *config = get_my_leds(indexLed);
             name = config->led_name;
         }
-        rxBuffer++;        
-        rxBuffer++;  
-
-        */
-        if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s",name);
-
-        stringToString(status, name,strlen(name));
+        rxBuffer++;
+        rxBuffer++;
         
+        ESP_LOGI(TAG, "%s",name);
+        stringToString(status, name,strlen(name));       
         uartDataBackCR(status);
     }
 
