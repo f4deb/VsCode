@@ -20,13 +20,14 @@ typedef struct {
     uint8_t ratio_ms;
     const char *led_name;
     uint8_t index;
+    uint8_t status; // 0 =OFF / 1 = ON
     } led_config_t;
 
 static led_config_t my_leds[] = {
-    {.gpio_pin = LED1_GREEN_GPIO, .delay_ms = 1000, .ratio_ms = 50, .index = 0, .led_name = "LedVert1"},
-    {.gpio_pin = LED1_RED_GPIO, .delay_ms = 1000, .ratio_ms = 50, .index = 1, .led_name = "LedRouge1"},
-    {.gpio_pin = LED2_GREEN_GPIO, .delay_ms = 1000, .ratio_ms = 50, .index = 2, .led_name = "LedVert2"},
-    {.gpio_pin = LED2_RED_GPIO, .delay_ms = 1000, .ratio_ms = 50, .index = 3, .led_name = "LedRouge2"}
+    {.gpio_pin = LED1_GREEN_GPIO, .delay_ms = 1000, .ratio_ms = 0, .index = 0, .led_name = "LedVert1"},
+    {.gpio_pin = LED1_RED_GPIO, .delay_ms = 1000, .ratio_ms = 100, .index = 1, .led_name = "LedRouge1"},
+    {.gpio_pin = LED2_GREEN_GPIO, .delay_ms = 1000, .ratio_ms = 0, .index = 2, .led_name = "LedVert2"},
+    {.gpio_pin = LED2_RED_GPIO, .delay_ms = 1000, .ratio_ms = 100, .index = 3, .led_name = "LedRouge2"}
 };
 
 led_config_t* get_my_leds (int led);

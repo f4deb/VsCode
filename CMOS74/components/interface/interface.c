@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "interface.h"
+#include "charUtils.h"
 #include "interfaceDescriptor.h"
 
 
@@ -9,6 +10,8 @@
 #include "nvs_flash.h"
 #include "esp_event.h"
 #include "esp_log.h"
+
+#include "../errorCmos/include/errorCmos.h"
 
 #include "../uartCommand/include/uartCommand.h"
 #include "../cpuLed/include/cpuLed.h"
@@ -19,6 +22,7 @@
 //#include "../Oled/include/OledInterface.h"
 #include "../i2c/include/i2cInterface.h"
 //#include "../sensor/include/sensorInterface.h"
+#include "../uartUtils/include/uartUtils.h"
 
 #define TAG "Interface"
 
@@ -34,9 +38,11 @@ const char* interface_err_to_name(esp_err_t err) {
 
 
 void interface_task(void *arg){
+
     char rxBuffer[BUF_SIZE];
     char str[INTERFACE_HEADER_SIZE];
-
+    char status[50] ;
+    char *name="tt";
     for(;;) {
 
         if (INTERFACE_DEBUG) ESP_LOGI(TAG, "debug interface");
@@ -80,12 +86,37 @@ void interface_task(void *arg){
                 else if ((strcmp(SENSOR_INTERFACE_HEADER,str)) == 0) {
                     //sensorInterface(rxBuffer+5);
                 }   */            
-            }
-            else {
-                //printHelp();
-            }
-            
-        }   
-    //vTaskDelay(pdMS_TO_TICKS(1));
+                else {
+
+
+                    if (INTERFACE_DEBUG) ESP_LOGI(TAG, "%X", ERR_COMMAND_INVALID);
+printf("toto1\n");
+
+                         
+                    ESP_LOGE(TAG, "Error : 0x%04X\n", ERR_COMMAND_INVALID);
+                    name = "helpsdqsdsdsqdsqdsqdsqdsq";
+printf("toto2\n");
+                    
+
+                    //JJ     tets log
+                    error_log(ERR_COMMAND_INVALID, "Ttest log\n", NULL);  //xTaskGetCurrentTaskHandle
+
+error_print_last_log();
+                   
+
+  
+    
+
+
+
+
+                    //stringToString(status, name,strlen(name));       
+                    
+                    //ESP_LOGE(TAG, "%s",status);
+                    //uartDataBackCR(status); 
+                }            
+            }   
+        //vTaskDelay(pdMS_TO_TICKS(1));
+        }
     }
 }

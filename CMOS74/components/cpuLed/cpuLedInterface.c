@@ -10,6 +10,7 @@
 
 #include "../charUtils/include/charUtils.h"
 #include "../uartUtils/include/uartUtils.h"
+#include "../errorCmos/include/errorCmos.h"
 
 #include "../cpuLed/include/cpuLed.h"
 #include "../interface/include/interface.h"
@@ -27,9 +28,6 @@ void cpuLedInterface(char rxBuffer[50]){
     char str[CPU_LED_INTERFACE_COMMAND_SIZE];
     char status[100];
 
-    uint8_t ledNumber = 0;
-    uint8_t ledColor = 0;
-    uint8_t s_led_state = 0;
     uint8_t value8 = 0;
     uint32_t value32 = 0;
 
@@ -109,9 +107,8 @@ void cpuLedInterface(char rxBuffer[50]){
         // traitement
         led_config_t *config = get_my_leds(indexLed);
         config->ratio_ms = value32;
-        
+       
         uartDataBackLF(status);
-
     }
 
     else if ((strcmp(GET_CPU_LED_NAME_HEADER,str)) == 0) {
@@ -138,40 +135,40 @@ void cpuLedInterface(char rxBuffer[50]){
         uartDataBackCR(status);
     }
 
-
-
-
-
-
-
     else if ((strcmp(GET_CPU_LED_HEADER,str)) == 0) {
-        // Lecture 2 paramètres
-        ledNumber = readHex(stringToString(str,rxBuffer,2));
-        ledColor = readHex(stringToString(str,rxBuffer,2));
+        char *name = "toto";    
+        // Lecture Index led
+        indexLed = readHex(stringToString(str,rxBuffer,2));
+        if (( indexLed  < 0 ) || ( indexLed  > INDEXMAX )){
+            name = "Format command error ERROR 0x1111";
+            ESP_LOGE(TAG, "%s",name);
+            stringToString(status, name,strlen(name));       
+            uartDataBackCR(status);
+            return;
+        }                
 
-        // traitement
-        if (ledNumber == LED1_GREEN_GPIO){
-            //s_led_state= getCpuLed(getLed1(),ledColor);
-        }
-        else if (ledNumber == LED1_GREEN_GPIO){
-            //s_led_state= getCpuLed(getLed2(),ledColor);
-        }
-        else {
-            if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "Invalid Led number");
-            //s_led_state= 0x99;
-        }        
-        if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "LED Status : %s", s_led_state == true ? "ON" : "OFF");
-        sprintf (status,"%02x", s_led_state );        
-            
-        uartDataBackLF(status);
+        led_config_t *config = get_my_leds(indexLed);
+
+        rxBuffer++;
+        rxBuffer++;
+
+        if (config->status == 0) name = "1";
+        else if (config->status == 1) name = "0";
+        else  name = "read le error";
+
+        stringToString(status, name,strlen(name));       
+        uartDataBackCR(status);
     }
     else if ((strcmp(HELP_CPU_LED_HEADER,str)) == 0) {
         // Lecture 0 paramètre
 
         // traitement      
         cpuLedInterfaceDescriptor();
+
+        //error_print_last_log();
     }
     else {
         ESP_LOGE(TAG, "Bad command");
+        //ERR_COMMAND_INVALID
     }
 }
