@@ -1,12 +1,9 @@
-#ifndef LOG_CMOS_H
-#define LOG_CMOS_H
+#ifndef CUSTOM_LOG_H
+#define CUSTOM_LOG_H
+#include <stdint.h>
+#include <stdarg.h>
 
-#include "esp_err.h"
-#include "esp_log.h"
-
-
-
-void init_custom_logs(void);
+uint32_t CMOS_LOG(void);
 
 
-#endif
+#endif // CUSTOM_LOG_H

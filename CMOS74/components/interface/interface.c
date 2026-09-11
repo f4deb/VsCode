@@ -89,20 +89,7 @@ void interface_task(void *arg){
                 else {
 
 
-                    if (INTERFACE_DEBUG) ESP_LOGI(TAG, "%X", ERR_COMMAND_INVALID);
-printf("toto1\n");
-
-                         
-                    ESP_LOGE(TAG, "Error : 0x%04X\n", ERR_COMMAND_INVALID);
-                    name = "helpsdqsdsdsqdsqdsqdsqdsq";
-printf("toto2\n");
-                    
-
-                    //JJ     tets log
-                    error_log(ERR_COMMAND_INVALID, "Ttest log\n", NULL);  //xTaskGetCurrentTaskHandle
-
-error_print_last_log();
-                   
+         
 
   
     

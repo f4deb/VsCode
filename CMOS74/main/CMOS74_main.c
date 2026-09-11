@@ -50,41 +50,10 @@ static const char *TAG= "Main : ";
 
 #define GPIO_OUTPUT_PIN_SEL ((1ULL<<LED1_GREEN_GPIO)|(1ULL<<LED1_RED_GPIO)|(1ULL<<LED2_GREEN_GPIO)|(1ULL<<LED2_RED_GPIO))
 
-/********************************/
-// Variable statique pour conserver l'ancien vprintf de l'ESP-IDF
-static vprintf_like_t s_previous_log_vprintf = NULL;
-
-// Votre fonction d'interception
-static int custom_log_vprintf(const char *fmt, va_list args)
-{
-    // 1. Sauvegarder les arguments si besoin de les réutiliser
-    va_list args_copy;
-    va_copy(args_copy, args);
-
-    // 2. Traitement personnalisé (ex: écrire dans un fichier / buffer)
-    // process_my_custom_logs(fmt, args_copy);
-    
-    va_end(args_copy);
-
-    // 3. Appeler le gestionnaire précédent (affiche dans la console UART)
-    if (s_previous_log_vprintf != NULL) {
-        return s_previous_log_vprintf(fmt, args);
-    }
-
-    return 0;
-}
-/****************************************/
-
 void init(){
 
-    init_custom_logs();
-
-    // Remplace le vprintf d'origine et stocke le pointeur précédent
-
-    ESP_LOGI("MAIN", "Le système de log personnalisé est configuré !");
-
-    error_init(); // Initialiser le système de logs
-
+    CMOS_LOG();
+    printError (ERR_COMMAND_INVALID ,0b00000011);
 
 
     /* Configure the peripheral according to the LED type */
