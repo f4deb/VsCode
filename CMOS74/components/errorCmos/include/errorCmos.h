@@ -12,7 +12,13 @@
 
 // Base offset pour ton composant personnalisé (Bit 17 activé + offset composant)
 
-
+typedef enum {
+    NO_OUPUT = 0,
+    OUTPUT_DEBUG = 1,
+    OUTPUT_COMMAND = 2,
+    OUTPUT_LCD = 4,
+    OUTPUT_7SEG = 8
+}output_t;
 
 
 typedef enum {
@@ -31,7 +37,7 @@ typedef enum {
 
 const char* device_state_to_str(error_code_t errorCode);
 
-void printError (uint32_t codeError, uint8_t output);
+void printError (error_code_t codeError, uint8_t output);
 
 
 #endif
