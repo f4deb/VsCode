@@ -18,10 +18,10 @@
 #include "../uartCommand/include/uartCommand.h"
 #include "../../../../esp-idf/components/esp_driver_uart/include/driver/uart.h"
 
-#define TAG "CPU Led Interface "
+#define TAG "Error Store Interface "
 
 
-uint8_t helCpuLedIndex = 0;
+uint8_t helpErrorStoreIndex = 0;
 
 void errorStoreInterface(char rxBuffer[50]){
     char str[ERROR_STORE_INTERFACE_COMMAND_SIZE];
@@ -38,6 +38,21 @@ void errorStoreInterface(char rxBuffer[50]){
     rxBuffer++;        
    
     if ((strcmp(READ_ALL_ERROR_HEADER,str)) == 0) {       
+
+            if (ERROR_STORE_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
+
+
+            ESP_LOGI("MAIN", "Nombre d'erreurs en memoire : %u", count);
+            for (size_t i = 0; i < count; i++) {
+                ESP_LOGE("MAIN", "[%lu ms] Code: 0x%x - %s", 
+                        logs[i].timestamp, 
+                        logs[i].err_code, 
+                        logs[i].message);
+            }
+
+
+
+
         uartDataBackLF(status);
     }
 

@@ -9,11 +9,15 @@ idf_component_register(SRCS "interface.c"
                             "../eeprom/eepromInterface.c"                  
                             "../eeprom/eepromInterfaceDescriptor.c"         
                             "../eeprom/eepromTools.c"        
+                            "../errorStore/errorStore.c"
+                            "../errorStore/errorStoreInterface.c"
+                            "../errorStore/errorSroreInterfaceDescriptor.c"
 INCLUDE_DIRS "include" 
             "../charUtils/include"
 			"../cpuLed/include/" 
             "../i2c/include/"
             "../driverCmos/eeprom/include"
             "../eeprom/include"
-PRIV_REQUIRES  driver esp_partition esp_event nvs_flash
+            "../errorStore/include"
+PRIV_REQUIRES  driver esp_partition esp_event nvs_flash esp_timer
             )
