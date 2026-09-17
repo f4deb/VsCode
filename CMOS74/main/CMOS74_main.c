@@ -45,6 +45,8 @@
 
 */
 
+
+
 static const char *TAG= "Main : ";
 
 #define GPIO_OUTPUT_PIN_SEL ((1ULL<<LED1_GREEN_GPIO)|(1ULL<<LED1_RED_GPIO)|(1ULL<<LED2_GREEN_GPIO)|(1ULL<<LED2_RED_GPIO))
@@ -54,21 +56,11 @@ void init(){
 ESP_ERROR_CHECK(error_store_init());
 
     // Enregistrer une erreur de test
-    error_store_write(ESP_ERR_TIMEOUT, "WiFi connection timeout");
+   // error_store_write(ESP_ERR_TIMEOUT, "WiFiB connection timeout");
 
-    // Lire les erreurs enregistrées
-    error_log_entry_t logs[MAX_ERROR_LOGS];
-    size_t count = 0;
+    
 
-    if (error_store_read_all(logs, &count) == ESP_OK) {
-        ESP_LOGI("MAIN", "Nombre d'erreurs en memoire : %u", count);
-        for (size_t i = 0; i < count; i++) {
-            ESP_LOGE("MAIN", "[%lu ms] Code: 0x%x - %s", 
-                     logs[i].timestamp, 
-                     logs[i].err_code, 
-                     logs[i].message);
-        }
-    }
+
 
 
     /* Configure the peripheral according to the LED type */
