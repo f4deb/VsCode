@@ -18,9 +18,8 @@
 #define CLEAR_ERROR_HEADER "C"
 #define HELP_ERROR_STORE_HEADER "h"
 
-// Lire les erreurs enregistrées
- static   error_log_entry_t logs[MAX_ERROR_LOGS];
- static   size_t count = 0;
+void errorStoreInit(void);
+
 
 void errorStoreInterface(char rxBuffer[50]);
 

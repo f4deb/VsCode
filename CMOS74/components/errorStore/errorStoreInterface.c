@@ -20,12 +20,38 @@
 
 #define TAG "Error Store Interface "
 
+// Lire les erreurs enregistrées
+    error_log_entry_t logs[MAX_ERROR_LOGS];
+    size_t count = 0;
+
 
 uint8_t helpErrorStoreIndex = 0;
 
+
+void readAllError(void){
+    if (error_store_read_all(logs, &count) == ESP_OK) {
+        ESP_LOGI(TAG, "Nombre d'erreurs en mémoire : %zu", count);
+        for (size_t i = 0; i < count; i++) {
+            ESP_LOGI(TAG, "[%lu ms] Code: 0x%x | Msg: %s",
+                     logs[i].timestamp, logs[i].err_code, logs[i].message);
+
+        }
+    }  
+}
+
+void errorStoreInit(void){
+        
+    ESP_ERROR_CHECK(error_store_init());
+
+    //error_store_write(ESP_FAIL, "12345");
+    
+    readAllError();   
+}
+
+
 void errorStoreInterface(char rxBuffer[50]){
     char str[ERROR_STORE_INTERFACE_COMMAND_SIZE];
-    char status[100];
+    char status[50];
 
     uint8_t value8 = 0;
     uint32_t value32 = 0;
@@ -39,38 +65,27 @@ void errorStoreInterface(char rxBuffer[50]){
    
     if ((strcmp(READ_ALL_ERROR_HEADER,str)) == 0) {       
 
-            if (ERROR_STORE_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
+
+    //error_store_write(ESP_FAIL, "toutu");
+    
+// Lecture des erreurs
+
+    if (ERROR_STORE_INTERFACE_DEBUG) ESP_LOGI("STACK", "High water mark: %u octets libres", (unsigned)uxTaskGetStackHighWaterMark(NULL));
+    readAllError();   
+    if (ERROR_STORE_INTERFACE_DEBUG) ESP_LOGI("STACK", "High water mark: %u octets libres", (unsigned)uxTaskGetStackHighWaterMark(NULL));
 
 
-            ESP_LOGI("MAIN", "Nombre d'erreurs en memoire : %u", count);
-            for (size_t i = 0; i < count; i++) {
-                ESP_LOGE("MAIN", "[%lu ms] Code: 0x%x - %s", 
-                        logs[i].timestamp, 
-                        logs[i].err_code, 
-                        logs[i].message);
-            }
-
-
-
-
-        uartDataBackLF(status);
+        //uartDataBackLF(status);
     }
 
     else if ((strcmp(WRITE_ERROR_HEADER,str)) == 0) {
-        
-        // Lecture Index led
-        indexLed = readHex(stringToString(str,rxBuffer,2));
-        rxBuffer++;        
-        rxBuffer++;     
-
-        if ( value32 < 100 ) value32 = 100;                
-        if ( value32 > 10000 ) value32 = 10000;
+       
         
         uartDataBackLF(status);
     }
     else if ((strcmp(CLEAR_ERROR_HEADER,str)) == 0) {
 
- 
+    
        
         uartDataBackLF(status);
     }

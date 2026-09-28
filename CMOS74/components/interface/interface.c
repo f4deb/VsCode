@@ -77,11 +77,12 @@ void interface_task(void *arg){
                 // EEPROM
                 else if ((strcmp(EEPROM_INTERFACE_HEADER,str)) == 0) {
                     eepromInterface(rxBuffer+5);
-                }       
+                }     
                 // ERROR STORE
                 else if ((strcmp(ERROR_STORE_INTERFACE_HEADER,str)) == 0) {
                     errorStoreInterface(rxBuffer+5);
-                }     
+                }      
+
                 /*        
                 // Oled
                 else if ((strcmp(OLED_INTERFACE_HEADER,str)) == 0) {
@@ -92,23 +93,12 @@ void interface_task(void *arg){
                     //sensorInterface(rxBuffer+5);
                 }   */            
                 else {
-
-
-         
-
-  
-    
-
-
-
-
                     //stringToString(status, name,strlen(name));       
                     
                     //ESP_LOGE(TAG, "%s",status);
                     //uartDataBackCR(status); 
                 }            
             }   
-        //vTaskDelay(pdMS_TO_TICKS(1));
         }
     }
 }

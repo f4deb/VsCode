@@ -25,7 +25,7 @@ uint8_t helSevenSegmentsdIndex = 0;
 
 void sevenSegmentsInterface(char rxBuffer[50]){
     char str[SEVEN_SEGMENTS_INTERFACE_COMMAND_SIZE];
-    char status[100];
+    char status[50];
 
     uint8_t ledNumber = 0;
     uint8_t ledColor = 0;

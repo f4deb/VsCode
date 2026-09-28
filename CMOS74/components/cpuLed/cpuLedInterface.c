@@ -26,7 +26,7 @@ uint8_t helCpuLedIndex = 0;
 
 void cpuLedInterface(char rxBuffer[50]){
     char str[CPU_LED_INTERFACE_COMMAND_SIZE];
-    char status[100];
+    char status[50];
 
     uint8_t value8 = 0;
     uint32_t value32 = 0;
