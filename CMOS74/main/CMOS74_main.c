@@ -31,6 +31,8 @@
 #include "../components/errorStore/include/errorStore.h"
 #include "../components/errorStore/include/errorStoreInterface.h"
 
+#include "../components/eeprom/include/eepromTools.h"
+
 #include "../components/i2c/include/i2cTools.h"
 #include "../components/interface/include/interface.h"
 #include "../components/interface/include/interfaceDescriptor.h"
@@ -56,7 +58,6 @@ static const char *TAG= "Main : ";
 void init(){
 
     errorStoreInit();
-
 /*
 ESP_ERROR_CHECK(error_store_init());
 
@@ -92,6 +93,8 @@ ESP_ERROR_CHECK(error_store_init());
     };
     gpio_config(&io_conf);
 
+    eepromInit();
+
     //i2c_dev_pcf8574_init();
 //printDeviceLine();
     //initClock();
@@ -105,25 +108,25 @@ ESP_ERROR_CHECK(error_store_init());
   
     xTaskCreate(led_blink_task, 
                 "Cpu Led vert 1 Task", 
-                COMMAND_TASK_STACK_SIZE, 
+                LED_TASK_STACK_SIZE, 
                 get_my_leds(0),
                 2, 
                 NULL); 
     xTaskCreate(led_blink_task, 
                 "Cpu Led rouge 1 Task", 
-                COMMAND_TASK_STACK_SIZE, 
+                LED_TASK_STACK_SIZE, 
                 get_my_leds(1),
                 2, 
                 NULL);    
     xTaskCreate(led_blink_task, 
                 "Cpu Led3 Task", 
-                COMMAND_TASK_STACK_SIZE, 
+                LED_TASK_STACK_SIZE, 
                 get_my_leds(2),
                 2, 
                 NULL);              
     xTaskCreate(led_blink_task, 
                 "Cpu Led4 Task", 
-                COMMAND_TASK_STACK_SIZE, 
+                LED_TASK_STACK_SIZE, 
                 get_my_leds(3),
                 2, 
                 NULL);                 

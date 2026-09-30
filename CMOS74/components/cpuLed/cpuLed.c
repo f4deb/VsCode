@@ -34,6 +34,13 @@ void led_blink_task(void *pvParameters){
         config->status = 1;
         gpio_set_level(config->gpio_pin,1);
         vTaskDelay(pdMS_TO_TICKS((config->delay_ms)*(100-(config->ratio_ms))/100));
+
+
+
+        if (CPU_LED_DEBUG) {
+            UBaseType_t uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+            ESP_LOGI("STACK", "Stack minimum restant : %u octets", (unsigned int)uxHighWaterMark);
+        }        
     }
     vTaskDelete(NULL);
 }    

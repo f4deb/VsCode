@@ -17,7 +17,12 @@
 #define EEPROM_BLOCK_WRITE_HEADER "W"
 #define EEPROM_BYTE_WRITE_HEADER "w"
 #define EEPROM_SET_ADDRESSE_HEADER "a"
-#define EEPROM_READ_HEADER "r"
+
+#define EEPROM_READ_BYTE_HEADER "r"
+#define EEPROM_READ_BLOC_ADRESS_HEADER "R"
+#define EEPROM_READ_ALL_HEADER "A"
+
+
 #define EEPROM_HELP_HEADER "h"
 
 int eepromInterface(char rxBuffer[50]);

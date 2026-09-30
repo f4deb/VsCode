@@ -40,7 +40,7 @@ menu "UART Command Configuration"
         range 1024 16384
         default 3072
         help
-            Defines stack size for UART echo example. Insufficient stack size can cause crash.
+            Defines stack size for UART. Insufficient stack size can cause crash.
 
 endmenu
 
@@ -96,7 +96,6 @@ menu "Cpu Led1 Configuration"
         default 50
         help
             Define pourcentage of the blinking period
-
 
     choice LED1_GREEN
         prompt "Blink LED1 GREEN type"
@@ -255,6 +254,13 @@ menu "Cpu Led2 Configuration"
         default 50
         help
             Define pourcentage of the blinking period
+
+    config LED_TASK_STACK_SIZE
+        int "LED task stack size"
+        range 1024 16384
+        default 3072
+        help
+            Defines stack size for LED. Insufficient stack size can cause crash.            
 
 endmenu
 

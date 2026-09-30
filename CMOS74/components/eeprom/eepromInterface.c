@@ -82,15 +82,76 @@ int eepromInterface(char rxBuffer[50]){
         rxBuffer++;       
         writeEeprom(buf, 1,1);
         */
-
-
-
         if (EEPROM_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
     }
-    else if ((strcmp(EEPROM_READ_HEADER,str)) == 0) {
+
+
+
+
+    else if ((strcmp(EEPROM_READ_BYTE_HEADER,str)) == 0) {
+        /* Format : 
+        * jk+eer
+        * Address   : HEX4 
+        */
+        setBlockAddr(readHex(stringToString(str,rxBuffer,4)));
+        rxBuffer++;        
+        rxBuffer++;         
+        rxBuffer++;        
+        rxBuffer++; 
+
         // traitement      
-        readEeprom();
+            readEepromByte();
+        if (EEPROM_INTERFACE_DEBUG) {
+            UBaseType_t uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+            ESP_LOGI("STACK", "Stack minimum restant : %u octets", (unsigned int)uxHighWaterMark);
+        }    
     }
+    else if ((strcmp(EEPROM_READ_BLOC_ADRESS_HEADER,str)) == 0) {
+        /* Format : 
+        * jk+eer
+        * Address   : HEX4 
+        * Separator : SEPARATOR
+        * Size      : HEX2
+        * 
+        * Maximumdata to transfert : 16 bytes.
+        */
+        setBlockAddr(readHex(stringToString(str,rxBuffer,4)));
+        rxBuffer++;        
+        rxBuffer++;         
+        rxBuffer++;        
+        rxBuffer++; 
+
+        if (!serparator(rxBuffer)){
+            ESP_LOGE(TAG, "Code Erreur : Separator not detected");
+            return -1;
+        }
+        rxBuffer++; 
+
+        setBlockSize(readHex(stringToString(str,rxBuffer,2)));
+        rxBuffer++;        
+        rxBuffer++; 
+                // traitement      
+
+
+        readEepromBloc();
+        if (EEPROM_INTERFACE_DEBUG) {
+            UBaseType_t uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+            ESP_LOGI("STACK", "Stack minimum restant : %u octets", (unsigned int)uxHighWaterMark);
+        }    
+    }
+    else if ((strcmp(EEPROM_READ_ALL_HEADER,str)) == 0) {
+        /* Format : 
+        * jk+eeA
+        */
+        // traitement      
+        setBlockAddr(0x0000);
+        readEepromAll();
+        if (EEPROM_INTERFACE_DEBUG) {
+            UBaseType_t uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+            ESP_LOGI("STACK", "Stack minimum restant : %u octets", (unsigned int)uxHighWaterMark);
+        }    
+    }
+    
     else if ((strcmp(EEPROM_SET_ADDRESSE_HEADER,str)) == 0) {
         // Lecture 0 paramètre
 

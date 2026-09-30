@@ -3,13 +3,18 @@
 
 #include "driver/i2c_master.h"
 
+// Interface
 void eepromInit(void);
 void writeEeprom(uint8_t value[], uint32_t addr, uint8_t length);
-void readEeprom(void);
+void readEepromAll(void);
+void readEepromBloc(void);
+void readEepromByte(void);
 
+// Local
 unsigned char* getReadBuffer(void);
 unsigned char* getWriteBuffer(void);
 void setBlockAddr(uint32_t addr);
-void setBlockSize(uint8_t size);
+void setBlockSize(uint16_t size);
+
 
 #endif

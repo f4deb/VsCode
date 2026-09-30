@@ -13,7 +13,8 @@
 
 #include "../driverCmos/eeprom/include/i2cEeprom.h"
 
-int LENGTH = 48;
+uint8_t LENGTH = 48;
+
 
 static uint8_t write_buf[];
 static uint8_t read_buf[];
@@ -47,7 +48,7 @@ void setBlockAddr(uint32_t addr){
     block_addr = addr;
 }
 
-void setBlockSize(uint8_t size){
+void setBlockSize(uint16_t size){
     block_size = size;
 }
 
@@ -84,8 +85,21 @@ void writeEeprom(uint8_t value[], uint32_t addr, uint8_t length){
     vTaskDelay(50);
 }
 
-void readEeprom(void){
+void readEepromAll(void){
     ESP_ERROR_CHECK(i2c_eeprom_read(eeprom_handle, block_addr, read_buf, LENGTH));
     disp_buf(read_buf, LENGTH);
+    vTaskDelay(50);
+}
+
+void readEepromBloc(void){
+    ESP_ERROR_CHECK(i2c_eeprom_read(eeprom_handle, block_addr, read_buf, block_size));
+    disp_buf(read_buf, block_size);
+    vTaskDelay(50);
+}
+
+void readEepromByte(){
+    setBlockSize(1);
+    ESP_ERROR_CHECK(i2c_eeprom_read(eeprom_handle, block_addr, read_buf, block_size));
+    disp_buf(read_buf, block_size);
     vTaskDelay(50);
 }

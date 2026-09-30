@@ -45,18 +45,13 @@ void interface_task(void *arg){
     char status[50] ;
     char *name="tt";
     for(;;) {
-
-        if (INTERFACE_DEBUG) ESP_LOGI(TAG, "debug interface");
-
         if (xQueueReceive(getQueueUart2(), &(rxBuffer), (TickType_t)5)) {
             if (INTERFACE_DEBUG) ESP_LOGI(TAG, "%s ", rxBuffer);
             stringToString(str,rxBuffer,strlen(interfaceHeader));
             if (INTERFACE_DEBUG) ESP_LOGI(TAG, "%s ", str);
             if ((strcmp(interfaceHeader,str)) == 0) {
-
                 stringToString(str,rxBuffer+3,2);
                 if (INTERFACE_DEBUG) ESP_LOGI(TAG, "%s ", str);
-
 
                 // CPU Led Interface
                 if ((strcmp(CPU_LED_INTERFACE_HEADER,str)) == 0) {
@@ -100,5 +95,9 @@ void interface_task(void *arg){
                 }            
             }   
         }
-    }
+        if (INTERFACE_DEBUG) {
+            UBaseType_t uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+            ESP_LOGI("STACK", "Stack minimum restant : %u octets", (unsigned int)uxHighWaterMark);
+        }   
+    }   
 }

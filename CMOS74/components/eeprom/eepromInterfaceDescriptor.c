@@ -24,5 +24,7 @@ void eepromInterfaceDescriptor(void){
     printTableBLine("help               : h","input : 0","Ouput : 0 "," ");
     printTableBlank();
     printTableBLine("Write Block EEPROM : W","input : 18","Ouput : 2 "," "); 
-    printDeviceStar();
+    printTableBlank();
+    printTableBLine("Read Block EEPROM : W","input : 18","Ouput : 2 "," ");     
+    printDeviceStar(); 
 }
