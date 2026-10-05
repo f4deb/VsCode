@@ -21,20 +21,30 @@
 #define TAG "Error Store Interface "
 
 // Lire les erreurs enregistrées
-    error_log_entry_t logs[MAX_ERROR_LOGS];
-    size_t count = 0;
+error_log_entry_t logs[MAX_ERROR_LOGS];
+size_t count = 0;
 
+unsigned int  errorCode;
 
 uint8_t helpErrorStoreIndex = 0;
 
 
 void readAllError(void){
+    char status[50];
+    char str[50];
+
     if (error_store_read_all(logs, &count) == ESP_OK) {
         ESP_LOGI(TAG, "Nombre d'erreurs en mémoire : %zu", count);
         for (size_t i = 0; i < count; i++) {
-            ESP_LOGI(TAG, "[%lu ms] Code: 0x%x | Msg: %s",
-                     logs[i].timestamp, logs[i].err_code, logs[i].message);
+            errorCode = (unsigned int)(logs[i].err_code & 0xFFFFF);
 
+            ESP_LOGI(TAG, "[%lu ms] Code: 0x%x | Msg: %s",
+            logs[i].timestamp, errorCode, logs[i].message);
+
+
+            //sprintf(str,"%2x ", errorCode);       
+            sprintf(str, "%x ", errorCode);       
+            uartDataBackLF(str);
         }
     }  
 }
@@ -50,7 +60,7 @@ void errorStoreInit(void){
 
 
 void errorStoreInterface(char rxBuffer[50]){
-    char str[ERROR_STORE_INTERFACE_COMMAND_SIZE];
+    char str[50];
     char status[50];
 
     uint8_t value8 = 0;
@@ -66,7 +76,6 @@ void errorStoreInterface(char rxBuffer[50]){
     if ((strcmp(READ_ALL_ERROR_HEADER,str)) == 0) {       
 
 
-    //error_store_write(ESP_FAIL, "toutu");
     
 // Lecture des erreurs
 
@@ -74,22 +83,18 @@ void errorStoreInterface(char rxBuffer[50]){
     readAllError();   
     if (ERROR_STORE_INTERFACE_DEBUG) ESP_LOGI("STACK", "High water mark: %u octets libres", (unsigned)uxTaskGetStackHighWaterMark(NULL));
 
-
         //uartDataBackLF(status);
     }
 
     else if ((strcmp(WRITE_ERROR_HEADER,str)) == 0) {
-       
-        
+        error_store_write(0x12345678, "ABCDEFGH");
+
         uartDataBackLF(status);
     }
     else if ((strcmp(CLEAR_ERROR_HEADER,str)) == 0) {
-
-    
-       
+        error_store_clear();
         uartDataBackLF(status);
     }
-
     
     else if ((strcmp(HELP_ERROR_STORE_HEADER,str)) == 0) {
         // Lecture 0 paramètre

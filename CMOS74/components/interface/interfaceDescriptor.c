@@ -104,7 +104,7 @@ void printTableBlank(void){
     uartDataBackLF(str);
 }
 
-void printTableBLine(char *text1,char *text2,char *text3,char *text4){
+void printTableLine(char *text1,char *text2,char *text3,char *text4){
         const char *str1=" ";
 
     str1 = printHelpFirstColumn(text1);

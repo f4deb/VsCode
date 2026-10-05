@@ -14,7 +14,7 @@ void printHelpTitle(char *text1,char *text2,char *text3,char *text4);
 char *printHelpFirstColumn(char *text);
 char *printHelpSecondColumn(char *text, char *text1);
 void printTableBlank(void);
-void printTableBLine(char *text1,char *text2,char *text3,char *text4);
+void printTableLine(char *text1,char *text2,char *text3,char *text4);
 
 
 

@@ -20,8 +20,8 @@ void i2cInterfaceDescriptor(void){
     printDeviceLine();
     printHelpTitle(INTERFACE_HEADER, I2C_INTERFACE_HEADER,"     ", I2C_INTERFACE_HEADER_NAME);
     printDeviceLine();
-    printTableBLine("help : h","input : 0","Ouput : 0 "," ");
+    printTableLine("help : h","input : 0","Ouput : 0 "," ");
     printTableBlank();
-    printTableBLine("detect : c","input : 0","Ouput : 0 "," "); 
+    printTableLine("detect : c","input : 0","Ouput : 0 "," "); 
     printDeviceStar();
 }

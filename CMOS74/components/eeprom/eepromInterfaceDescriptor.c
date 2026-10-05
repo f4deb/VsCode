@@ -21,10 +21,10 @@ void eepromInterfaceDescriptor(void){
     printDeviceLine();
     printHelpTitle(INTERFACE_HEADER, EEPROM_INTERFACE_HEADER,"     ", EEPROM_INTERFACE_HEADER_NAME);
     printDeviceLine();
-    printTableBLine("help               : h","input : 0","Ouput : 0 "," ");
+    printTableLine("help        : h","input : 0","Ouput : 0 "," ");
     printTableBlank();
-    printTableBLine("Write Block EEPROM : W","input : 18","Ouput : 2 "," "); 
+    printTableLine("Write Block : W","input : 18","Ouput : 2 "," "); 
     printTableBlank();
-    printTableBLine("Read Block EEPROM : W","input : 18","Ouput : 2 "," ");     
+    printTableLine("Read Block  : W","input : 18","Ouput : 2 "," ");     
     printDeviceStar(); 
 }
