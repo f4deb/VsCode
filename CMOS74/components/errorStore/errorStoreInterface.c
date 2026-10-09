@@ -41,8 +41,6 @@ void readAllError(void){
             ESP_LOGI(TAG, "[%lu ms] Code: 0x%x | Msg: %s",
             logs[i].timestamp, errorCode, logs[i].message);
 
-
-            //sprintf(str,"%2x ", errorCode);       
             sprintf(str, "%x ", errorCode);       
             uartDataBackLF(str);
         }

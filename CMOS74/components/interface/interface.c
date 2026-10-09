@@ -37,6 +37,61 @@ const char* interface_err_to_name(esp_err_t err) {
     }
 }
 
+char* ledInterfaceName = "led Test"; 
+char* ledInterfaceDescriptor= "led descriptor"; 
+
+typedef struct
+{
+    int index;
+    char *name;
+    char *description;   
+}InterfaceDescriptor;
+
+typedef struct
+{
+    uint8_t indexMax;
+    uint8_t currentIndex;
+    InterfaceDescriptor *map;
+}InterfaceList;
+
+static InterfaceDescriptor interfaceDescriptor;
+static InterfaceList interfaceList;
+
+
+InterfaceDescriptor* getInterfaceDescriptor(void){
+    return &interfaceDescriptor;
+}
+
+char* getInterfaceName(void){
+
+    char* toto = ledInterfaceName;
+
+    return toto;
+}
+
+char* getInterfaceDescription(void){
+    return ledInterfaceDescriptor;
+}
+
+void addInterfaceDescriptor(){
+    interfaceDescriptor.index = 0;
+    interfaceDescriptor.name = getInterfaceName();
+    interfaceDescriptor.description = getInterfaceDescription();
+    
+    interfaceList.map = getInterfaceDescriptor();
+
+}
+
+void printInterfaceDescriptor(){
+
+    InterfaceDescriptor *test;
+    test = interfaceList.map;
+
+    ESP_LOGI(TAG, "%s",test->name);
+}
+
+
+
 
 void interface_task(void *arg){
 
@@ -76,6 +131,9 @@ void interface_task(void *arg){
                 // ERROR STORE
                 else if ((strcmp(ERROR_STORE_INTERFACE_HEADER,str)) == 0) {
                     errorStoreInterface(rxBuffer+5);
+
+                    addInterfaceDescriptor();
+                    printInterfaceDescriptor();
                 }      
 
                 /*        
