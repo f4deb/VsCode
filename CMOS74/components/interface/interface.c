@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#include "interfaceDescriptor.h"
 #include "interface.h"
 #include "charUtils.h"
-#include "interfaceDescriptor.h"
+
 
 
 #include "sdkconfig.h"
@@ -16,6 +17,7 @@
 #include "../uartCommand/include/uartCommand.h"
 #include "../cpuLed/include/cpuLed.h"
 #include "../cpuLed/include/cpuLedInterface.h"
+#include "../cpuLed/include/cpuLedInterfaceDescriptor.h"
 //#include "../clock/include/clockInterface.h"
 #include "../eeprom/include/eepromInterface.h"
 #include "../errorStore//include/errorStoreInterface.h"
@@ -37,22 +39,15 @@ const char* interface_err_to_name(esp_err_t err) {
     }
 }
 
-char* ledInterfaceName = "led Test"; 
-char* ledInterfaceDescriptor= "led descriptor"; 
+const char* interfaceName = "interface test Command"; 
+const char* interfaceCommand = "jk+test"; 
+const char* interfaceDescriptort= "test descriptor"; 
 
-typedef struct
-{
-    int index;
-    char *name;
-    char *description;   
-}InterfaceDescriptor;
+const char* interfaceName1 = "interface test Command"; 
+const char* interfaceCommand1 = "jk+test"; 
+const char* interfaceDescriptort1= "test descriptor"; 
 
-typedef struct
-{
-    uint8_t indexMax;
-    uint8_t currentIndex;
-    InterfaceDescriptor *map;
-}InterfaceList;
+
 
 static InterfaceDescriptor interfaceDescriptor;
 static InterfaceList interfaceList;
@@ -62,23 +57,34 @@ InterfaceDescriptor* getInterfaceDescriptor(void){
     return &interfaceDescriptor;
 }
 
-char* getInterfaceName(void){
-
-    char* toto = ledInterfaceName;
-
-    return toto;
+char* getInterfaceName(char* name){
+    return name;
 }
 
-char* getInterfaceDescription(void){
-    return ledInterfaceDescriptor;
+char* getInterfaceDescription(char* descrptor){
+    return descrptor;
+}
+
+char* getInterfaceCommand(char* command){
+    return command;
 }
 
 void addInterfaceDescriptor(){
     interfaceDescriptor.index = 0;
-    interfaceDescriptor.name = getInterfaceName();
-    interfaceDescriptor.description = getInterfaceDescription();
+    interfaceDescriptor.name = getInterfaceName(interfaceName);
+    interfaceDescriptor.command = getInterfaceCommand(interfaceCommand);
+    interfaceDescriptor.description = getInterfaceDescription(interfaceDescriptort);
     
+    
+initLedInterfaceDesriptor();
+
+}
+
+void addInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
+
     interfaceList.map = getInterfaceDescriptor();
+    interfaceList.map = getLedInterfaceDescriptor();
+
 
 }
 
@@ -88,6 +94,8 @@ void printInterfaceDescriptor(){
     test = interfaceList.map;
 
     ESP_LOGI(TAG, "%s",test->name);
+    ESP_LOGI(TAG, "%s",test->command);  
+    ESP_LOGI(TAG, "%s",test->description);
 }
 
 
@@ -133,6 +141,7 @@ void interface_task(void *arg){
                     errorStoreInterface(rxBuffer+5);
 
                     addInterfaceDescriptor();
+                    addInterfaceDescriptorToList(&interfaceDescriptor);
                     printInterfaceDescriptor();
                 }      
 

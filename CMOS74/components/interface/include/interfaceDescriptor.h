@@ -8,6 +8,22 @@
 #define TABLE_SECOND_COLUMN_SIZE 15
 #define TABLE_THIRD_COLUMN_SIZE 16
 
+typedef struct
+{
+    int index;
+    char *name;
+    char *command;
+    char *description;   
+}InterfaceDescriptor;
+
+typedef struct
+{
+    uint8_t indexMax;
+    uint8_t currentIndex;
+    InterfaceDescriptor *map;
+}InterfaceList;
+
+
 void printDeviceLine(void);
 void printDeviceStar(void);
 void printHelpTitle(char *text1,char *text2,char *text3,char *text4);

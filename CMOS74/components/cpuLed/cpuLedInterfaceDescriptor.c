@@ -20,6 +20,24 @@
 
 #define TAG "CPU Led Interface Descrtiptor "
 
+const char* ledInterfaceName = "led Command"; 
+const char* ledInterfaceCommand = "jk+bl"; 
+const char* ledInterfaceDescriptort= "led descriptor"; 
+
+static InterfaceDescriptor ledInterfaceDescriptor;
+
+InterfaceDescriptor* getLedInterfaceDescriptor(void){
+    return &ledInterfaceDescriptor;
+}
+
+void initLedInterfaceDesriptor(){
+    ledInterfaceDescriptor.index = 1;
+    ledInterfaceDescriptor.name = getInterfaceName(ledInterfaceName);
+    ledInterfaceDescriptor.command = getInterfaceCommand(ledInterfaceCommand);
+    ledInterfaceDescriptor.description = getInterfaceDescription(ledInterfaceDescriptort);
+    
+}
+
 void cpuLedInterfaceDescriptor(void){  
     printDeviceLine();
     printHelpTitle(INTERFACE_HEADER, CPU_LED_INTERFACE_HEADER,"     ", CPU_LED_INTERFACE_HEADER_NAME);
@@ -53,4 +71,7 @@ void cpuLedInterfaceDescriptor(void){
     printTableLine("Led Statut"," ","        HEX2"," ");
     printTableLine("code Error"," ","        HEX4"," ");          
     printDeviceLine();
+
+    initLedInterfaceDesriptor();
+
 }

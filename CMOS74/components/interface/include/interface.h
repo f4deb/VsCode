@@ -16,6 +16,12 @@
 #define INTERFACE_HEADER "jk+"
 #define INTERFACE_HEADER_SIZE 3
 
+char* getInterfaceName(char* name);
+char* getInterfaceDescription(char* descrptor);
+char* getInterfaceCommand(char* command);
+
+
+
 // Fonction pour traduire l'erreur en chaîne de caractères
 const char* interface_err_to_name(esp_err_t err);
 
