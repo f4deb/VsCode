@@ -7,7 +7,10 @@
 
 #define CPU_LED_INTERFACE_DESCRIPTOR_DEBUG 0
 
-InterfaceDescriptor* getLedInterfaceDescriptor(void);
+#define CPU_LED_INTERFACE_DESCRIPTOR "led descriptor"
+
+
+InterfaceDescriptor getLedInterfaceDescriptor(void);
 
 void initLedInterfaceDesriptor();
 

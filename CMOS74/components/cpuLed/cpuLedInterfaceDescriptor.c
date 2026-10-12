@@ -20,22 +20,21 @@
 
 #define TAG "CPU Led Interface Descrtiptor "
 
-const char* ledInterfaceName = "led Command"; 
-const char* ledInterfaceCommand = "jk+bl"; 
-const char* ledInterfaceDescriptort= "led descriptor"; 
+const char* ledInterfaceName = CPU_LED_INTERFACE_HEADER_NAME; 
+const char* ledInterfaceCommand = INTERFACE_HEADER CPU_LED_INTERFACE_HEADER; 
+const char* ledInterfaceDescriptort = CPU_LED_INTERFACE_DESCRIPTOR; 
 
 static InterfaceDescriptor ledInterfaceDescriptor;
 
-InterfaceDescriptor* getLedInterfaceDescriptor(void){
-    return &ledInterfaceDescriptor;
+InterfaceDescriptor getLedInterfaceDescriptor(void){
+    return ledInterfaceDescriptor;
 }
 
 void initLedInterfaceDesriptor(){
     ledInterfaceDescriptor.index = 1;
     ledInterfaceDescriptor.name = getInterfaceName(ledInterfaceName);
     ledInterfaceDescriptor.command = getInterfaceCommand(ledInterfaceCommand);
-    ledInterfaceDescriptor.description = getInterfaceDescription(ledInterfaceDescriptort);
-    
+    ledInterfaceDescriptor.description = getInterfaceDescription(ledInterfaceDescriptort);    
 }
 
 void cpuLedInterfaceDescriptor(void){  

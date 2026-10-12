@@ -43,18 +43,12 @@ const char* interfaceName = "interface test Command";
 const char* interfaceCommand = "jk+test"; 
 const char* interfaceDescriptort= "test descriptor"; 
 
-const char* interfaceName1 = "interface test Command"; 
-const char* interfaceCommand1 = "jk+test"; 
-const char* interfaceDescriptort1= "test descriptor"; 
-
-
-
 static InterfaceDescriptor interfaceDescriptor;
 static InterfaceList interfaceList;
 
 
-InterfaceDescriptor* getInterfaceDescriptor(void){
-    return &interfaceDescriptor;
+InterfaceDescriptor getInterfaceDescriptor(void){
+    return interfaceDescriptor;
 }
 
 char* getInterfaceName(char* name){
@@ -75,27 +69,32 @@ void addInterfaceDescriptor(){
     interfaceDescriptor.command = getInterfaceCommand(interfaceCommand);
     interfaceDescriptor.description = getInterfaceDescription(interfaceDescriptort);
     
-    
-initLedInterfaceDesriptor();
-
+    initLedInterfaceDesriptor();
 }
 
 void addInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
 
-    interfaceList.map = getInterfaceDescriptor();
-    interfaceList.map = getLedInterfaceDescriptor();
+    interfaceList.map[0] = getInterfaceDescriptor();
+    interfaceList.map[1] = getLedInterfaceDescriptor();
 
 
 }
 
 void printInterfaceDescriptor(){
 
-    InterfaceDescriptor *test;
-    test = interfaceList.map;
+    InterfaceDescriptor test;
+    test = interfaceList.map[1];
 
-    ESP_LOGI(TAG, "%s",test->name);
-    ESP_LOGI(TAG, "%s",test->command);  
-    ESP_LOGI(TAG, "%s",test->description);
+    ESP_LOGI(TAG, "%s",test.name);
+    ESP_LOGI(TAG, "%s",test.command);  
+    
+    ESP_LOGI(TAG, "%s",test.description);
+
+        test = interfaceList.map[0];
+
+    ESP_LOGI(TAG, "%s",test.name);
+    ESP_LOGI(TAG, "%s",test.command);  
+    ESP_LOGI(TAG, "%s",test.description);
 }
 
 

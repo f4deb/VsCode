@@ -14,13 +14,14 @@ typedef struct
     char *name;
     char *command;
     char *description;   
+    int *objet;
 }InterfaceDescriptor;
 
 typedef struct
 {
     uint8_t indexMax;
     uint8_t currentIndex;
-    InterfaceDescriptor *map;
+    InterfaceDescriptor map[20];
 }InterfaceList;
 
 
