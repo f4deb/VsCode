@@ -16,6 +16,9 @@
 #define INTERFACE_HEADER "jk+"
 #define INTERFACE_HEADER_SIZE 3
 
+#define INDEX_MAX 20
+
+
 char* getInterfaceName(char* name);
 char* getInterfaceDescription(char* descrptor);
 char* getInterfaceCommand(char* command);

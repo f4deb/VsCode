@@ -7,7 +7,7 @@
 
 #define CPU_LED_INTERFACE_DESCRIPTOR_DEBUG 0
 
-#define CPU_LED_INTERFACE_DESCRIPTOR "led descriptor"
+#define CPU_LED_INTERFACE_DESCRIPTOR " : Interface de Commande des leds"
 
 
 InterfaceDescriptor getLedInterfaceDescriptor(void);

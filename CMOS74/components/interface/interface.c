@@ -74,8 +74,12 @@ void addInterfaceDescriptor(){
 
 void addInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
 
-    interfaceList.map[0] = getInterfaceDescriptor();
-    interfaceList.map[1] = getLedInterfaceDescriptor();
+    interfaceList.currentIndex = 0;
+    interfaceList.indexMax = INTERFACE_DESCRIPTOR_INDEX_MAX;
+    interfaceList.map[interfaceList.currentIndex] = getInterfaceDescriptor();
+    interfaceList.currentIndex++;
+    interfaceList.map[interfaceList.currentIndex] = getLedInterfaceDescriptor();
+    interfaceList.currentIndex++;
 
 
 }

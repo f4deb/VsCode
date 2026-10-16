@@ -8,6 +8,8 @@
 #define TABLE_SECOND_COLUMN_SIZE 15
 #define TABLE_THIRD_COLUMN_SIZE 16
 
+#define INTERFACE_DESCRIPTOR_INDEX_MAX 20
+
 typedef struct
 {
     int index;
@@ -21,7 +23,7 @@ typedef struct
 {
     uint8_t indexMax;
     uint8_t currentIndex;
-    InterfaceDescriptor map[20];
+    InterfaceDescriptor map[INTERFACE_DESCRIPTOR_INDEX_MAX];
 }InterfaceList;
 
 
