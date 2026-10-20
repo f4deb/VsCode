@@ -1,6 +1,9 @@
 #ifndef INTERFACE_DESCRIPTOR_H
 #define INTERFACE_DESCRIPTOR_H
 
+#include <stdbool.h>
+
+
 #define INTERFACE_DESCRIPTOR_DEBUG 0
 
 #define TABLE_SIZE 52
@@ -12,6 +15,7 @@
 
 typedef struct
 {
+    bool isInit;        
     int index;
     char *name;
     char *command;
@@ -35,6 +39,7 @@ char *printHelpSecondColumn(char *text, char *text1);
 void printTableBlank(void);
 void printTableLine(char *text1,char *text2,char *text3,char *text4);
 
+void printTableCode(char *name,uint16_t input,uint16_t output);
 
 
 #endif

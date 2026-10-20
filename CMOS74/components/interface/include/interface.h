@@ -2,6 +2,7 @@
 #define INTERFACE_H
 
 #include "esp_err.h"
+#include "../../interface/include/interfaceDescriptor.h"
 
 // Plage 0x90100 pour le moteur
 #define ESP_ERR_INTERFACE_BASE          0x90100
@@ -17,6 +18,8 @@
 #define INTERFACE_HEADER_SIZE 3
 
 #define INDEX_MAX 20
+
+InterfaceList* getInterfaceList(void);
 
 
 char* getInterfaceName(char* name);

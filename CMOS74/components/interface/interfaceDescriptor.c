@@ -17,6 +17,8 @@
 
     char str[50] = "interface descriptor";
 
+    static char* textResult ="??";
+
 void printDeviceLine(void){
     sprintf(str,"|" );
     const char *str1="-";
@@ -44,10 +46,14 @@ void printDeviceStar(void){
 
 
 void printHelpTitle(char *text1,char *text2,char *text3,char *text4){
+    
+    char strc[3]  = " : ";
+
     sprintf (str,"| " );
     strncat (str,text1,strlen(text1));
     strncat (str,text2,strlen(text2));
     strncat (str,text3,strlen(text3));
+    strncat (str,strc,3);
     strncat (str,text4,strlen(text4));
     const char *str1=" ";
 
@@ -112,6 +118,49 @@ void printTableLine(char *text1,char *text2,char *text3,char *text4){
     str1 = printHelpSecondColumn(str,text2);
     sprintf(str, str1);
     str1 = printHelpSecondColumn(str,text3);
+    sprintf(str, str1);
+    ESP_LOGE(TAG,"%s",str);
+    uartDataBackLF(str);
+}
+
+
+char* getFromCodeDescriptor(uint16_t input){
+    static char* str1;
+
+    uint16_t p_fort = (uint16_t)(input >> 8);
+    
+    switch(p_fort){
+    case 0: 
+        str1 = " ";
+        break;
+    
+    case 1:
+        str1 = "input : ";
+        break;
+
+    case 2:
+        str1 = "Ouput : ";
+        break;
+
+    default:
+    str1 = " Error";
+    //erreur de formatage
+    break;
+    }
+    return str1;
+}
+
+void printTableCode(char *name,uint16_t input,uint16_t output){
+        const char *str1=" ";
+
+
+    str1 = printHelpFirstColumn(name);
+    sprintf(str, str1);
+
+    str1 = printHelpSecondColumn(str,getFromCodeDescriptor(input));
+    sprintf(str, str1);
+
+    str1 = printHelpSecondColumn(str,getFromCodeDescriptor(output));
     sprintf(str, str1);
     ESP_LOGE(TAG,"%s",str);
     uartDataBackLF(str);

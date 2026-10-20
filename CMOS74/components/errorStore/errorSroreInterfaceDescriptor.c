@@ -20,11 +20,37 @@
 
 #define TAG "Error Store Interface Descrtiptor "
 
+static const char* errorStoreInterfaceName = ERROR_STORE_INTERFACE_HEADER_NAME; 
+static const char* errorStoreInterfaceCommand = INTERFACE_HEADER ERROR_STORE_INTERFACE_HEADER; 
+static const char* errorStoreInterfaceDescriptort = ERROR_STORE_INTERFACE_DESCRIPTOR; 
+
+static InterfaceDescriptor errorStroreInterfaceDescriptor;
+
+InterfaceDescriptor getErrorStoreInterfaceDescriptor(void){
+    return errorStroreInterfaceDescriptor;
+}
+
+void initErrorStoreInterfaceDesriptor(){
+    InterfaceList *list;
+    uint8_t index;
+    list = getInterfaceList();
+    index = list->currentIndex;
+
+    if (!errorStroreInterfaceDescriptor.isInit){
+        errorStroreInterfaceDescriptor.isInit = true;
+        errorStroreInterfaceDescriptor.index = index;
+        errorStroreInterfaceDescriptor.name = getInterfaceName(errorStoreInterfaceName);
+        errorStroreInterfaceDescriptor.command = getInterfaceCommand(errorStoreInterfaceCommand);
+        errorStroreInterfaceDescriptor.description = getInterfaceDescription(errorStoreInterfaceDescriptort);    
+    }
+
+}
+
 void errorStoreInterfaceDescriptor(void){  
     printDeviceLine();
-    printHelpTitle(INTERFACE_HEADER, ERROR_STORE_INTERFACE_HEADER,"     ", ERROR_STORE_INTERFACE_HEADER_NAME);
+    printHelpTitle(errorStroreInterfaceDescriptor.command,  " / ", errorStroreInterfaceDescriptor.name, errorStroreInterfaceDescriptor.description);
     printDeviceLine();
-    printTableLine("help : h","input : 0","Ouput : 0 "," ");
+    printTableCode("help : "HELP_ERROR_STORE_HEADER,0x100,0x200);
     printTableBlank();
     printTableLine("Name  : w","input : 4","Ouput :  0"," ");
     printTableLine("Code Error ","        HEX4"," "," ");

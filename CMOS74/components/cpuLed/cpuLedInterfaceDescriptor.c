@@ -31,19 +31,28 @@ InterfaceDescriptor getLedInterfaceDescriptor(void){
 }
 
 void initLedInterfaceDesriptor(){
-    ledInterfaceDescriptor.index = 1;
-    ledInterfaceDescriptor.name = getInterfaceName(ledInterfaceName);
-    ledInterfaceDescriptor.command = getInterfaceCommand(ledInterfaceCommand);
-    ledInterfaceDescriptor.description = getInterfaceDescription(ledInterfaceDescriptort);    
+    InterfaceList *list;
+    uint8_t index;
+    list = getInterfaceList();
+    index = list->currentIndex;
+
+    if (!ledInterfaceDescriptor.isInit){
+        ledInterfaceDescriptor.isInit = true;
+        ledInterfaceDescriptor.index = index;
+        ledInterfaceDescriptor.name = getInterfaceName(ledInterfaceName);
+        ledInterfaceDescriptor.command = getInterfaceCommand(ledInterfaceCommand);
+        ledInterfaceDescriptor.description = getInterfaceDescription(ledInterfaceDescriptort);    
+    }
+
 }
 
 void cpuLedInterfaceDescriptor(void){  
     printDeviceLine();
     printHelpTitle(ledInterfaceDescriptor.command,  " / ", ledInterfaceDescriptor.name, ledInterfaceDescriptor.description);
     printDeviceLine();
-    printTableLine("help : h","input : 0","Ouput : 0 "," ");
+    printTableCode("help : "HELP_CPU_LED_HEADER,0x100,0x200);
     printTableBlank();
-    printTableLine("Name  : n","input : 2","Ouput : 16"," ");
+    printTableLine("Name  : "GET_CPU_LED_NAME_HEADER,"input : 2","Ouput : 16"," ");
     printTableLine("Led index ","        HEX2"," "," ");
     printTableLine("Name","            "," Text12"," ");
     printTableLine("code Error"," ","        HEX4"," ");

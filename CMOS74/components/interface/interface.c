@@ -20,7 +20,8 @@
 #include "../cpuLed/include/cpuLedInterfaceDescriptor.h"
 //#include "../clock/include/clockInterface.h"
 #include "../eeprom/include/eepromInterface.h"
-#include "../errorStore//include/errorStoreInterface.h"
+#include "../errorStore/include/errorStoreInterface.h"
+#include "../errorStore/include/errorStoreInterfaceDescriptor.h"
 //#include "../8IoButtonBoard/include/8IoButtonBoardInterface.h"
 //#include "../Oled/include/OledInterface.h"
 #include "../i2c/include/i2cInterface.h"
@@ -47,6 +48,10 @@ static InterfaceDescriptor interfaceDescriptor;
 static InterfaceList interfaceList;
 
 
+InterfaceList* getInterfaceList(void){
+    return &interfaceList;
+}
+
 InterfaceDescriptor getInterfaceDescriptor(void){
     return interfaceDescriptor;
 }
@@ -63,12 +68,18 @@ char* getInterfaceCommand(char* command){
     return command;
 }
 
-void addInterfaceDescriptor(){
+void initInterfaceDscriptor(void){
     interfaceDescriptor.index = 0;
     interfaceDescriptor.name = getInterfaceName(interfaceName);
     interfaceDescriptor.command = getInterfaceCommand(interfaceCommand);
     interfaceDescriptor.description = getInterfaceDescription(interfaceDescriptort);
+}
+
+void addInterfaceDescriptor(){
     
+    initInterfaceDscriptor();
+
+    initErrorStoreInterfaceDesriptor();
     initLedInterfaceDesriptor();
 }
 
@@ -80,7 +91,8 @@ void addInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
     interfaceList.currentIndex++;
     interfaceList.map[interfaceList.currentIndex] = getLedInterfaceDescriptor();
     interfaceList.currentIndex++;
-
+    interfaceList.map[interfaceList.currentIndex] = getErrorStoreInterfaceDescriptor();
+    interfaceList.currentIndex++;
 
 }
 
@@ -141,11 +153,13 @@ void interface_task(void *arg){
                 }     
                 // ERROR STORE
                 else if ((strcmp(ERROR_STORE_INTERFACE_HEADER,str)) == 0) {
-                    errorStoreInterface(rxBuffer+5);
-
                     addInterfaceDescriptor();
                     addInterfaceDescriptorToList(&interfaceDescriptor);
                     printInterfaceDescriptor();
+                    
+                    errorStoreInterface(rxBuffer+5);
+
+                    
                 }      
 
                 /*        
