@@ -25,6 +25,7 @@ typedef struct
 
 typedef struct
 {
+    bool isInit;
     uint8_t indexMax;
     uint8_t currentIndex;
     InterfaceDescriptor map[INTERFACE_DESCRIPTOR_INDEX_MAX];

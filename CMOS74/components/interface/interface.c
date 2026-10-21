@@ -75,24 +75,28 @@ void initInterfaceDscriptor(void){
     interfaceDescriptor.description = getInterfaceDescription(interfaceDescriptort);
 }
 
-void addInterfaceDescriptor(){
+void createInterfaceDescriptor(){
     
     initInterfaceDscriptor();
 
-    initErrorStoreInterfaceDesriptor();
-    initLedInterfaceDesriptor();
 }
 
-void addInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
+void createInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
 
-    interfaceList.currentIndex = 0;
-    interfaceList.indexMax = INTERFACE_DESCRIPTOR_INDEX_MAX;
-    interfaceList.map[interfaceList.currentIndex] = getInterfaceDescriptor();
-    interfaceList.currentIndex++;
-    interfaceList.map[interfaceList.currentIndex] = getLedInterfaceDescriptor();
-    interfaceList.currentIndex++;
-    interfaceList.map[interfaceList.currentIndex] = getErrorStoreInterfaceDescriptor();
-    interfaceList.currentIndex++;
+    if (!interfaceList.isInit){
+        interfaceList.isInit = true;
+        interfaceList.currentIndex = 0;
+        interfaceList.indexMax = INTERFACE_DESCRIPTOR_INDEX_MAX;
+        interfaceList.map[interfaceList.currentIndex] = getInterfaceDescriptor();
+        interfaceList.currentIndex++;
+        interfaceList.map[interfaceList.currentIndex] = getLedInterfaceDescriptor();
+        interfaceList.currentIndex++;
+        interfaceList.map[interfaceList.currentIndex] = getErrorStoreInterfaceDescriptor();
+        interfaceList.currentIndex++;
+    }    
+}
+
+void addInterfaceDescriptorToList(){
 
 }
 
@@ -122,6 +126,10 @@ void interface_task(void *arg){
     char str[INTERFACE_HEADER_SIZE];
     char status[50] ;
     char *name="tt";
+
+    createInterfaceDescriptor();
+    createInterfaceDescriptorToList(&interfaceDescriptor);
+
     for(;;) {
         if (xQueueReceive(getQueueUart2(), &(rxBuffer), (TickType_t)5)) {
             if (INTERFACE_DEBUG) ESP_LOGI(TAG, "%s ", rxBuffer);
@@ -133,6 +141,8 @@ void interface_task(void *arg){
 
                 // CPU Led Interface
                 if ((strcmp(CPU_LED_INTERFACE_HEADER,str)) == 0) {
+                    //initLedInterfaceDesriptor();
+
                     cpuLedInterface(rxBuffer+(5));
                 }
                 // Clock
@@ -153,10 +163,9 @@ void interface_task(void *arg){
                 }     
                 // ERROR STORE
                 else if ((strcmp(ERROR_STORE_INTERFACE_HEADER,str)) == 0) {
-                    addInterfaceDescriptor();
-                    addInterfaceDescriptorToList(&interfaceDescriptor);
-                    printInterfaceDescriptor();
-                    
+                    //printInterfaceDescriptor();
+                    //initErrorStoreInterfaceDesriptor();
+
                     errorStoreInterface(rxBuffer+5);
 
                     
