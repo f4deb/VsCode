@@ -81,61 +81,51 @@ void createInterfaceDescriptor(){
     initLedInterfaceDesriptor();
     initErrorStoreInterfaceDesriptor();
 
-
 }
 
+void addInterfaceDescriptorToList(InterfaceDescriptor descriptor){
+    InterfaceList *list;
+    list = getInterfaceList();
+
+    list->map[list->currentIndex] = descriptor;
+    list->currentIndex++;
+    list->indexMax = list->currentIndex;
+}
+
+
+
 void createInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
-
-        InterfaceList *list;
-        list = getInterfaceList();
-
+    InterfaceList *list;
+    list = getInterfaceList();
 
     if (!list->isInit){
         list->isInit = true;
         list->currentIndex = 0;
-        list->indexMax = INTERFACE_DESCRIPTOR_INDEX_MAX;
-        list->map[list->currentIndex] = getInterfaceDescriptor();
-        list->currentIndex++;
-        
+        list->indexMax =0;
+        list->indexSize = INTERFACE_DESCRIPTOR_INDEX_SIZE;
 
-        list->map[1] = getLedInterfaceDescriptor();
-        list->currentIndex++;
-        list->map[2] = getErrorStoreInterfaceDescriptor();
-        list->currentIndex++;
-        
+        addInterfaceDescriptorToList(getInterfaceDescriptor());
+        addInterfaceDescriptorToList(getLedInterfaceDescriptor());
+        addInterfaceDescriptorToList(getErrorStoreInterfaceDescriptor());
     }    
-}
-
-void addInterfaceDescriptorToList(){
-
 }
 
 void printInterfaceDescriptor(){
 
-
-
     InterfaceList *list;
     list = getInterfaceList();
 
-    InterfaceDescriptor test;
-    test = list->map[0];
+    
 
-    ESP_LOGI(TAG, "%s",test.name);  
-    ESP_LOGI(TAG, "%s",test.command);  
-    ESP_LOGI(TAG, "%s",test.description);
+    InterfaceDescriptor interfaceDescriptor;
 
-    test = list->map[1];
-
-    InterfaceDescriptor toto;
-    toto = getLedInterfaceDescriptor(); 
-    ESP_LOGI(TAG, "%s",test.name);
-    ESP_LOGI(TAG, "%s",test.command);  
-    ESP_LOGI(TAG, "%s",test.description);
-
+    for (int i = 0; i <= 2; i++){
+        interfaceDescriptor = list->map[i];
+        ESP_LOGI(TAG, "%s",interfaceDescriptor.name);  
+        ESP_LOGI(TAG, "%s",interfaceDescriptor.command);  
+        ESP_LOGI(TAG, "%s",interfaceDescriptor.description);
+    }    
 }
-
-
-
 
 void interface_task(void *arg){
 

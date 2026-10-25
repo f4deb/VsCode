@@ -34,7 +34,11 @@ void initLedInterfaceDesriptor(){
     InterfaceList *list;
     uint8_t index;
     list = getInterfaceList();
-    index = list->currentIndex;
+    index = list->indexMax;
+
+    list->map[index] = getLedInterfaceDescriptor();
+    list->currentIndex++;
+    list->indexMax = list->currentIndex;
 
     if (!ledInterfaceDescriptor.isInit){
         ledInterfaceDescriptor.isInit = true;
@@ -80,6 +84,6 @@ void cpuLedInterfaceDescriptor(void){
     printTableLine("code Error"," ","        HEX4"," ");          
     printDeviceLine();
 
-    initLedInterfaceDesriptor();
+    //initLedInterfaceDesriptor();
 
 }
