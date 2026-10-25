@@ -78,21 +78,31 @@ void initInterfaceDscriptor(void){
 void createInterfaceDescriptor(){
     
     initInterfaceDscriptor();
+    initLedInterfaceDesriptor();
+    initErrorStoreInterfaceDesriptor();
+
 
 }
 
 void createInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
 
-    if (!interfaceList.isInit){
-        interfaceList.isInit = true;
-        interfaceList.currentIndex = 0;
-        interfaceList.indexMax = INTERFACE_DESCRIPTOR_INDEX_MAX;
-        interfaceList.map[interfaceList.currentIndex] = getInterfaceDescriptor();
-        interfaceList.currentIndex++;
-        interfaceList.map[interfaceList.currentIndex] = getLedInterfaceDescriptor();
-        interfaceList.currentIndex++;
-        interfaceList.map[interfaceList.currentIndex] = getErrorStoreInterfaceDescriptor();
-        interfaceList.currentIndex++;
+        InterfaceList *list;
+        list = getInterfaceList();
+
+
+    if (!list->isInit){
+        list->isInit = true;
+        list->currentIndex = 0;
+        list->indexMax = INTERFACE_DESCRIPTOR_INDEX_MAX;
+        list->map[list->currentIndex] = getInterfaceDescriptor();
+        list->currentIndex++;
+        
+
+        list->map[1] = getLedInterfaceDescriptor();
+        list->currentIndex++;
+        list->map[2] = getErrorStoreInterfaceDescriptor();
+        list->currentIndex++;
+        
     }    
 }
 
@@ -102,19 +112,26 @@ void addInterfaceDescriptorToList(){
 
 void printInterfaceDescriptor(){
 
+
+
+    InterfaceList *list;
+    list = getInterfaceList();
+
     InterfaceDescriptor test;
-    test = interfaceList.map[1];
+    test = list->map[0];
 
-    ESP_LOGI(TAG, "%s",test.name);
-    ESP_LOGI(TAG, "%s",test.command);  
-    
-    ESP_LOGI(TAG, "%s",test.description);
-
-        test = interfaceList.map[0];
-
-    ESP_LOGI(TAG, "%s",test.name);
+    ESP_LOGI(TAG, "%s",test.name);  
     ESP_LOGI(TAG, "%s",test.command);  
     ESP_LOGI(TAG, "%s",test.description);
+
+    test = list->map[1];
+
+    InterfaceDescriptor toto;
+    toto = getLedInterfaceDescriptor(); 
+    ESP_LOGI(TAG, "%s",test.name);
+    ESP_LOGI(TAG, "%s",test.command);  
+    ESP_LOGI(TAG, "%s",test.description);
+
 }
 
 
@@ -163,7 +180,6 @@ void interface_task(void *arg){
                 }     
                 // ERROR STORE
                 else if ((strcmp(ERROR_STORE_INTERFACE_HEADER,str)) == 0) {
-                    //printInterfaceDescriptor();
                     //initErrorStoreInterfaceDesriptor();
 
                     errorStoreInterface(rxBuffer+5);
@@ -182,7 +198,8 @@ void interface_task(void *arg){
                 }   */            
                 else {
                     //stringToString(status, name,strlen(name));       
-                    
+                    printInterfaceDescriptor();
+
                     //ESP_LOGE(TAG, "%s",status);
                     //uartDataBackCR(status); 
                 }            

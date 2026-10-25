@@ -66,7 +66,6 @@ void errorStoreInterface(char rxBuffer[50]){
 
     uint8_t indexLed = 0;
 
-    initErrorStoreInterfaceDesriptor();
 
     if (ERROR_STORE_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", rxBuffer);
     stringToString(str,rxBuffer, ERROR_STORE_INTERFACE_COMMAND_SIZE);

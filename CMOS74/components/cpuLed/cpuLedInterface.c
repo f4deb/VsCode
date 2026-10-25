@@ -33,7 +33,6 @@ void cpuLedInterface(char rxBuffer[50]){
 
     uint8_t indexLed = 0;
 
-    initLedInterfaceDesriptor();
 
     if (CPU_LED_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", rxBuffer);
     stringToString(str,rxBuffer, CPU_LED_INTERFACE_COMMAND_SIZE);
