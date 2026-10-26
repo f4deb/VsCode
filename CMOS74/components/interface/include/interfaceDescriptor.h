@@ -43,7 +43,7 @@ char *printHelpSecondColumn(char *text, char *text1);
 void printTableBlank(void);
 void printTableLine(char *text1,char *text2,char *text3,char *text4);
 
-void printTableCode(char *name,uint16_t input,uint16_t output);
+void printTableCode(char *name,uint32_t input,uint32_t output);
 
 
 #endif

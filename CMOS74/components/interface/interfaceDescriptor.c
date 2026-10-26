@@ -123,11 +123,30 @@ void printTableLine(char *text1,char *text2,char *text3,char *text4){
     uartDataBackLF(str);
 }
 
+/**
+ * @brief Get the From Code Descriptor object
+ * 
+ * Format : Poid fort :
+ *              0001xxxx = Input
+ *              0002xxxx = Output
+ *          Poid Faible :
+ *              xxxx0000 = NULL
+ *              xxxx01ss = HEX / ss = size of hexadecimal
+ *              xxxx02ss = DEC / ss = size of decimal
+ *              xxxx03ss = STR / ss = size of string   
+ *  
+ * @param input 
+ *  * @return char* 
+ */
 
-char* getFromCodeDescriptor(uint16_t input){
+char* getFromCodeDescriptor(uint32_t input){
     static char* str1;
 
-    uint16_t p_fort = (uint16_t)(input >> 8);
+    // Traitement du poid fort
+
+    uint32_t p_fort = (uint32_t)(input >> 16);
+
+    uint16_t size = (uint16_t)(input & 0xFF);
     
     switch(p_fort){
     case 0: 
@@ -136,6 +155,8 @@ char* getFromCodeDescriptor(uint16_t input){
     
     case 1:
         str1 = "input : ";
+        //sprintf(str1,"input : %02x",0x02);
+        //snprintf(str1, sizeof(str1), "input : %04x", (uint16_t)(size & 0xFFFF));
         break;
 
     case 2:
@@ -150,9 +171,8 @@ char* getFromCodeDescriptor(uint16_t input){
     return str1;
 }
 
-void printTableCode(char *name,uint16_t input,uint16_t output){
+void printTableCode(char *name,uint32_t input,uint32_t output){
         const char *str1=" ";
-
 
     str1 = printHelpFirstColumn(name);
     sprintf(str, str1);
@@ -162,6 +182,6 @@ void printTableCode(char *name,uint16_t input,uint16_t output){
 
     str1 = printHelpSecondColumn(str,getFromCodeDescriptor(output));
     sprintf(str, str1);
-    ESP_LOGI(TAG,"%s",str);
+    ESP_LOGE(TAG,"%s",str);
     uartDataBackLF(str);
 }

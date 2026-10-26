@@ -50,14 +50,14 @@ void errorStoreInterfaceDescriptor(void){
     printDeviceLine();
     printHelpTitle(errorStroreInterfaceDescriptor.command,  " / ", errorStroreInterfaceDescriptor.name, errorStroreInterfaceDescriptor.description);
     printDeviceLine();
-    printTableCode("help : "HELP_ERROR_STORE_HEADER,0x100,0x200);
+    printTableCode("help : "HELP_ERROR_STORE_HEADER,0x10000,0x20000);
     printTableBlank();
-    printTableLine("Write single Error  : w","input : 4","Ouput :  0"," ");
+    printTableLine("Write single Error  : "WRITE_ERROR_HEADER,"input : 4","Ouput :  0"," ");
     printTableLine(" ","        HEX4"," "," ");
     printTableBlank();
-    printTableLine("Print error list  : R","input : 0","Ouput :  4"," ");
+    printTableLine("Print error list  : "READ_ALL_ERROR_HEADER,"input : 0","Ouput :  4"," ");
     printTableLine(" "," ","TEXT "," ");
     printTableBlank();
-    printTableLine("Clear error list : C","input : 0","Ouput : 0 "," "); 
+    printTableLine("Clear error list : "CLEAR_ERROR_HEADER,"input : 0","Ouput : 0 "," "); 
     printDeviceLine();
 }
