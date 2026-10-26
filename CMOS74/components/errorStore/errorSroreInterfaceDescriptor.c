@@ -52,12 +52,10 @@ void errorStoreInterfaceDescriptor(void){
     printDeviceLine();
     printTableCode("help : "HELP_ERROR_STORE_HEADER,0x10000,0x20000);
     printTableBlank();
-    printTableLine("Write single Error  : "WRITE_ERROR_HEADER,"input : 4","Ouput :  0"," ");
-    printTableLine(" ","        HEX4"," "," ");
+    printTableCode("Write single Error  : "WRITE_ERROR_HEADER,0x10104,0x20000);
     printTableBlank();
-    printTableLine("Print error list  : "READ_ALL_ERROR_HEADER,"input : 0","Ouput :  4"," ");
-    printTableLine(" "," ","TEXT "," ");
+    printTableCode("Print error list  : "READ_ALL_ERROR_HEADER,0x10000,0x20104);
     printTableBlank();
-    printTableLine("Clear error list : "CLEAR_ERROR_HEADER,"input : 0","Ouput : 0 "," "); 
+    printTableCode("Clear error list : "CLEAR_ERROR_HEADER,0x10000,0x20000); 
     printDeviceLine();
 }

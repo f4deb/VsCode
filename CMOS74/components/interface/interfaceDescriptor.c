@@ -140,31 +140,44 @@ void printTableLine(char *text1,char *text2,char *text3,char *text4){
  */
 
 char* getFromCodeDescriptor(uint32_t input){
-    static char* str1;
+    static char str1[TABLE_SIZE];
+    static char str2[10];
+
 
     // Traitement du poid fort
 
     uint32_t p_fort = (uint32_t)(input >> 16);
 
-    uint16_t size = (uint16_t)(input & 0xFF);
+    uint8_t size = (uint8_t)(input & 0xFF);
+
+    uint8_t format = (uint8_t)(input >> 8) &0xFF;
+
+    switch(format){
+        case 0: 
+            snprintf(str2, sizeof(str2), "   ");
+            break;
+        case 1: 
+            snprintf(str2, sizeof(str2), "HEX");
+            break;
+    }
     
     switch(p_fort){
     case 0: 
-        str1 = " ";
+        snprintf(str1, sizeof(str1), " ");
         break;
     
     case 1:
-        str1 = "input : ";
+        //str1 = "input :    ";
         //sprintf(str1,"input : %02x",0x02);
-        //snprintf(str1, sizeof(str1), "input : %04x", (uint16_t)(size & 0xFFFF));
+        snprintf(str1, sizeof(str1), "input : %s%x",str2, (uint8_t)(size & 0xFF));
         break;
 
     case 2:
-        str1 = "Ouput : ";
+        snprintf(str1, sizeof(str1), "Outout : %s%x",str2, (uint8_t)(size & 0xFF));
         break;
 
     default:
-    str1 = " Error";
+    snprintf(str1, sizeof(str1), "Error ");
     //erreur de formatage
     break;
     }
