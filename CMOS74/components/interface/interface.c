@@ -4,8 +4,6 @@
 #include "interface.h"
 #include "charUtils.h"
 
-
-
 #include "sdkconfig.h"
 
 #include "nvs_flash.h"
@@ -30,8 +28,6 @@
 
 #define TAG "Interface"
 
-const char *interfaceHeader = "jk+";
-
 const char* interface_err_to_name(esp_err_t err) {
     switch (err) {
         case ESP_ERR_NO_SEPARATOR:     return "ESP_ERR_SEPARATOR_MISSED";
@@ -40,9 +36,10 @@ const char* interface_err_to_name(esp_err_t err) {
     }
 }
 
-const char* interfaceName = "interface test Command"; 
-const char* interfaceCommand = "jk+test"; 
-const char* interfaceDescriptort= "test descriptor"; 
+
+const char* interfaceName = INTERFACE_HEADER_NAME; 
+const char* interfaceCommand = INTERFACE_HEADER; 
+const char* interfaceDescriptort= INTERFACE_DESCRIPTOR; 
 
 static InterfaceDescriptor interfaceDescriptor;
 static InterfaceList interfaceList;
@@ -80,7 +77,6 @@ void createInterfaceDescriptor(){
     initInterfaceDscriptor();
     initLedInterfaceDesriptor();
     initErrorStoreInterfaceDesriptor();
-
 }
 
 void addInterfaceDescriptorToList(InterfaceDescriptor descriptor){
@@ -88,11 +84,9 @@ void addInterfaceDescriptorToList(InterfaceDescriptor descriptor){
     list = getInterfaceList();
 
     list->map[list->currentIndex] = descriptor;
-    list->currentIndex++;
     list->indexMax = list->currentIndex;
+    list->currentIndex++;
 }
-
-
 
 void createInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
     InterfaceList *list;
@@ -115,15 +109,15 @@ void printInterfaceDescriptor(){
     InterfaceList *list;
     list = getInterfaceList();
 
-    
-
     InterfaceDescriptor interfaceDescriptor;
 
-    for (int i = 0; i <= 2; i++){
+    for (int i = 0; i <= list->indexMax; i++){
         interfaceDescriptor = list->map[i];
-        ESP_LOGI(TAG, "%s",interfaceDescriptor.name);  
-        ESP_LOGI(TAG, "%s",interfaceDescriptor.command);  
-        ESP_LOGI(TAG, "%s",interfaceDescriptor.description);
+        
+        if (i ==0) printDeviceLine();
+
+        printHelpTitle(interfaceDescriptor.command,  " - ", interfaceDescriptor.name, interfaceDescriptor.description);
+        if (i == list->indexMax) printDeviceLine();
     }    
 }
 
@@ -140,9 +134,9 @@ void interface_task(void *arg){
     for(;;) {
         if (xQueueReceive(getQueueUart2(), &(rxBuffer), (TickType_t)5)) {
             if (INTERFACE_DEBUG) ESP_LOGI(TAG, "%s ", rxBuffer);
-            stringToString(str,rxBuffer,strlen(interfaceHeader));
+            stringToString(str,rxBuffer,strlen(INTERFACE_HEADER));
             if (INTERFACE_DEBUG) ESP_LOGI(TAG, "%s ", str);
-            if ((strcmp(interfaceHeader,str)) == 0) {
+            if ((strcmp(INTERFACE_HEADER,str)) == 0) {
                 stringToString(str,rxBuffer+3,2);
                 if (INTERFACE_DEBUG) ESP_LOGI(TAG, "%s ", str);
 

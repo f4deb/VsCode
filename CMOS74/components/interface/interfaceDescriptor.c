@@ -27,7 +27,7 @@ void printDeviceLine(void){
     }
     str1="|";
     strncat (str,str1,strlen(str1)+1);
-    ESP_LOGE(TAG,"%s",str);
+    ESP_LOGI(TAG,"%s",str);
     vTaskDelay(10);
     uartDataBackLF(str);
 }
@@ -40,7 +40,7 @@ void printDeviceStar(void){
     }
     str1="|";
     strncat (str,str1,strlen(str1)+1);
-    ESP_LOGE(TAG,"%s",str);
+    ESP_LOGI(TAG,"%s",str);
     uartDataBackLF(str);
 }
 
@@ -64,7 +64,7 @@ void printHelpTitle(char *text1,char *text2,char *text3,char *text4){
     }
     text1 = " |";
     strncat (str,text1,strlen(text1)+1);
-    ESP_LOGE(TAG,"%s",str);
+    ESP_LOGI(TAG,"%s",str);
     uartDataBackLF(str);
 }
 
@@ -106,7 +106,7 @@ void printTableBlank(void){
     sprintf(str, str1);
     str1 = printHelpSecondColumn(str," ");
     sprintf(str, str1);
-    ESP_LOGE(TAG,"%s",str);
+    ESP_LOGI(TAG,"%s",str);
     uartDataBackLF(str);
 }
 
@@ -119,7 +119,7 @@ void printTableLine(char *text1,char *text2,char *text3,char *text4){
     sprintf(str, str1);
     str1 = printHelpSecondColumn(str,text3);
     sprintf(str, str1);
-    ESP_LOGE(TAG,"%s",str);
+    ESP_LOGI(TAG,"%s",str);
     uartDataBackLF(str);
 }
 
@@ -162,6 +162,6 @@ void printTableCode(char *name,uint16_t input,uint16_t output){
 
     str1 = printHelpSecondColumn(str,getFromCodeDescriptor(output));
     sprintf(str, str1);
-    ESP_LOGE(TAG,"%s",str);
+    ESP_LOGI(TAG,"%s",str);
     uartDataBackLF(str);
 }

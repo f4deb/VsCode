@@ -17,6 +17,8 @@
 #define INTERFACE_HEADER "jk+"
 #define INTERFACE_HEADER_SIZE 3
 
+#define INTERFACE_HEADER_NAME "COMMAND INTERFACE"
+
 #define INDEX_MAX 20
 
 InterfaceList* getInterfaceList(void);
