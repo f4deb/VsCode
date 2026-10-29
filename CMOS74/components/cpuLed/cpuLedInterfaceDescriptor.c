@@ -51,32 +51,32 @@ void initLedInterfaceDesriptor(){
 }
 
 void cpuLedInterfaceDescriptor(void){  
+
     printDeviceLine();
     printHelpTitle(ledInterfaceDescriptor.command,  " / ", ledInterfaceDescriptor.name, ledInterfaceDescriptor.description);
     printDeviceLine();
-    printTableCode("help : "HELP_CPU_LED_HEADER,0x100,0x200);
+    printTableCode("help : "HELP_CPU_LED_HEADER,0x00000,0x00000);
     printTableBlank();
-    printTableLine("Name  : "GET_CPU_LED_NAME_HEADER,"input : 2","Ouput : 16"," ");
-    printTableLine("Led index ","        HEX2"," "," ");
-    printTableLine("Name","            "," Text12"," ");
-    printTableLine("code Error"," ","        HEX4"," ");
+    printTableCode("Get Name  : "GET_CPU_LED_NAME_HEADER,0x00000,0x00000);
+    printTableCode("Led index",0x10102,0x00000);
+    printTableCode("Return",0x00000,0x30000); 
     printTableBlank();
-    printTableLine("Time : t","input : 7","Ouput : 4 "," ");
-    printTableLine("Led index","        HEX2"," "," ");
-    printTableLine("Separator ","        HEX1"," "," ");
-    printTableLine("Time Value","        DEC4"," "," ");
-    printTableLine("code Error"," ","        HEX4"," ");
+    printTableCode("Set time blink "SET_TIME_BLINK_HEADER,0x00000,0x00000);
+    printTableCode("Led index",0x10102,0x00000);
+    printTableCode("Separator ",0x40101,0x00000);
+    printTableCode("Time Value",0x10204,0x00000);
+    printTableCode("code Error",0x00000,0x20104);
     printTableBlank();
-    printTableLine("Blink : b","input : 6","Ouput : 4 "," ");
-    printTableLine("Led index","        HEX2"," "," ");
-    printTableLine("Separator ","        HEX1"," "," ");
-    printTableLine("Ratio Value","        DEC3"," "," ");
-    printTableLine("code Error"," ","        HEX4"," ");
+    printTableCode("Blink Ratio : "SET_RATIO_BLINK_HEADER,0x00000,0x00000);
+    printTableCode("Led index",0x10102,0x00000);
+    printTableCode("Separator ",0x40101,0x00000);
+    printTableCode("Ratio Value",0x10203,0x00000);
+    printTableCode("code Error",0x00000,0x20104);
     printTableBlank();
-    printTableLine("Set Led : w","input : 4","Ouput : 4 "," ");
-    printTableLine("Led index","        HEX2"," "," ");
-    printTableLine("Led Value","        HEX2"," "," ");
-    printTableLine("code Error"," ","        HEX4"," ");
+    printTableCode("Set Led : "SET_CPU_LED_HEADER,0x00000,0x00000);
+    printTableCode("Led index",0x10102,0x00000);
+    printTableCode("Led Value",0x10102,0x00000);
+    printTableCode("code Error",0x00000,0x20104);
     printTableBlank();
     printTableLine("Read Led : r","input : 2","Ouput : 6 "," ");
     printTableLine("Led index","        HEX2"," "," ");

@@ -65,8 +65,8 @@ void cpuLedInterface(char rxBuffer[50]){
         
         // Lecture Index led
         indexLed = readHex(stringToString(str,rxBuffer,2));
-        rxBuffer++;        
-        rxBuffer++;     
+        rxBuffer++;
+        rxBuffer++;
 
         value8 = readSeparator(stringToString(str,rxBuffer,1));
         rxBuffer++;    

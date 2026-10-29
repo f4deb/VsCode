@@ -159,6 +159,9 @@ char* getFromCodeDescriptor(uint32_t input){
         case 1: 
             snprintf(str2, sizeof(str2), "HEX");
             break;
+        case 2: 
+            snprintf(str2, sizeof(str2), "DEC");
+            break;
     }
     
     switch(p_fort){
@@ -174,6 +177,14 @@ char* getFromCodeDescriptor(uint32_t input){
 
     case 2:
         snprintf(str1, sizeof(str1), "Outout : %s%x",str2, (uint8_t)(size & 0xFF));
+        break;
+
+    case 3:
+        snprintf(str1, sizeof(str1), "String : %s",str2);
+        break;
+    
+    case 4:
+        snprintf(str1, sizeof(str1), "input : -");
         break;
 
     default:
