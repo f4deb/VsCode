@@ -164,11 +164,7 @@ void interface_task(void *arg){
                 }     
                 // ERROR STORE
                 else if ((strcmp(ERROR_STORE_INTERFACE_HEADER,str)) == 0) {
-                    //initErrorStoreInterfaceDesriptor();
-
-                    errorStoreInterface(rxBuffer+5);
-
-                    
+                    errorStoreInterface(rxBuffer+5);         
                 }      
 
                 /*        
@@ -181,11 +177,7 @@ void interface_task(void *arg){
                     //sensorInterface(rxBuffer+5);
                 }   */            
                 else {
-                    //stringToString(status, name,strlen(name));       
                     printInterfaceDescriptor();
-
-                    //ESP_LOGE(TAG, "%s",status);
-                    //uartDataBackCR(status); 
                 }            
             }   
         }

@@ -43,19 +43,22 @@ void initErrorStoreInterfaceDesriptor(){
         errorStroreInterfaceDescriptor.command = getInterfaceCommand(errorStoreInterfaceCommand);
         errorStroreInterfaceDescriptor.description = getInterfaceDescription(errorStoreInterfaceDescriptort);    
     }
-
 }
 
 void errorStoreInterfaceDescriptor(void){  
     printDeviceLine();
     printHelpTitle(errorStroreInterfaceDescriptor.command,  " / ", errorStroreInterfaceDescriptor.name, errorStroreInterfaceDescriptor.description);
     printDeviceLine();
-    printTableCode("help : "HELP_ERROR_STORE_HEADER,0x10000,0x20000);
+    printTableCode("help : "HELP_ERROR_STORE_HEADER,0x00000,0x00000);
     printTableBlank();
-    printTableCode("Write single Error  : "WRITE_ERROR_HEADER,0x10104,0x20000);
+    printTableCode("Write single Error  : "WRITE_ERROR_HEADER,0x00000,0x00000);
+    printTableCode("Error to write",0x10104,0x00000);
+    printTableCode("code error",0x00000,0x20104); 
     printTableBlank();
-    printTableCode("Print error list  : "READ_ALL_ERROR_HEADER,0x10000,0x20104);
+    printTableCode("Print error list  : "READ_ALL_ERROR_HEADER,0x00000,0x00000);
+    printTableCode("code error",0x00000,0x20104); 
     printTableBlank();
-    printTableCode("Clear error list : "CLEAR_ERROR_HEADER,0x10000,0x20000); 
+    printTableCode("Clear error list : "CLEAR_ERROR_HEADER,0x00000,0x00000); 
+    printTableCode("code error",0x00000,0x20104); 
     printDeviceLine();
 }

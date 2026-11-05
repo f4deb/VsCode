@@ -75,15 +75,13 @@ void cpuLedInterfaceDescriptor(void){
     printTableBlank();
     printTableCode("Set Led : "SET_CPU_LED_HEADER,0x00000,0x00000);
     printTableCode("Led index",0x10102,0x00000);
+    printTableCode("Separator ",0x40101,0x00000);
     printTableCode("Led Value",0x10102,0x00000);
     printTableCode("code Error",0x00000,0x20104);
     printTableBlank();
-    printTableLine("Read Led : r","input : 2","Ouput : 6 "," ");
-    printTableLine("Led index","        HEX2"," "," ");
-    printTableLine("Led Statut"," ","        HEX2"," ");
-    printTableLine("code Error"," ","        HEX4"," ");          
+    printTableCode("Read Led : "GET_CPU_LED_HEADER,0x00000,0x00000);
+    printTableCode("Led index",0x10102,0x00000);
+    printTableCode("Led Statut",0x00000,0x20102);
+    printTableCode("code Error",0x00000,0x20104);          
     printDeviceLine();
-
-    //initLedInterfaceDesriptor();
-
 }
