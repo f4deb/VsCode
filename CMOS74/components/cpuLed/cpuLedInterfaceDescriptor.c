@@ -26,8 +26,8 @@ static const char* ledInterfaceDescriptort = CPU_LED_INTERFACE_DESCRIPTOR;
 
 static InterfaceDescriptor ledInterfaceDescriptor;
 
-InterfaceDescriptor getLedInterfaceDescriptor(void){
-    return ledInterfaceDescriptor;
+InterfaceDescriptor* getLedInterfaceDescriptor(void){
+    return &ledInterfaceDescriptor;
 }
 
 void initLedInterfaceDesriptor(){
@@ -36,7 +36,7 @@ void initLedInterfaceDesriptor(){
     list = getInterfaceList();
     index = list->indexMax;
 
-    list->map[index] = getLedInterfaceDescriptor();
+    list->map[index] = *getLedInterfaceDescriptor();
     list->currentIndex++;
     list->indexMax = list->currentIndex;
 

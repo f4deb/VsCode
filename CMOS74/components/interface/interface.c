@@ -49,8 +49,8 @@ InterfaceList* getInterfaceList(void){
     return &interfaceList;
 }
 
-InterfaceDescriptor getInterfaceDescriptor(void){
-    return interfaceDescriptor;
+InterfaceDescriptor* getInterfaceDescriptor(void){
+    return &interfaceDescriptor;
 }
 
 char* getInterfaceName(char* name){
@@ -66,6 +66,7 @@ char* getInterfaceCommand(char* command){
 }
 
 void initInterfaceDscriptor(void){
+
     interfaceDescriptor.index = 0;
     interfaceDescriptor.name = getInterfaceName(interfaceName);
     interfaceDescriptor.command = getInterfaceCommand(interfaceCommand);
@@ -79,11 +80,11 @@ void createInterfaceDescriptor(){
     initErrorStoreInterfaceDesriptor();
 }
 
-void addInterfaceDescriptorToList(InterfaceDescriptor descriptor){
+void addInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
     InterfaceList *list;
     list = getInterfaceList();
 
-    list->map[list->currentIndex] = descriptor;
+    list->map[list->currentIndex] = *descriptor;
     list->indexMax = list->currentIndex;
     list->currentIndex++;
 }

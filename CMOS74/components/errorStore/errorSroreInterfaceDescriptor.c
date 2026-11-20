@@ -26,8 +26,8 @@ static const char* errorStoreInterfaceDescriptort = ERROR_STORE_INTERFACE_DESCRI
 
 static InterfaceDescriptor errorStroreInterfaceDescriptor;
 
-InterfaceDescriptor getErrorStoreInterfaceDescriptor(void){
-    return errorStroreInterfaceDescriptor;
+InterfaceDescriptor* getErrorStoreInterfaceDescriptor(void){
+    return &errorStroreInterfaceDescriptor;
 }
 
 void initErrorStoreInterfaceDesriptor(){

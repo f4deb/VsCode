@@ -8,7 +8,7 @@
 
 #define ERROR_STORE_INTERFACE_DESCRIPTOR "Interface de gestion des erreurs"
 
-InterfaceDescriptor getErrorStoreInterfaceDescriptor(void);
+InterfaceDescriptor* getErrorStoreInterfaceDescriptor(void);
 
 void initErrorStoreInterfaceDesriptor();
 
