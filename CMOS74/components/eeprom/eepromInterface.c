@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <string.h>
 #include "eepromTools.h"
@@ -85,9 +84,6 @@ int eepromInterface(char rxBuffer[50]){
         if (EEPROM_INTERFACE_DEBUG) ESP_LOGE(TAG, "%s ", str);
     }
 
-
-
-
     else if ((strcmp(EEPROM_READ_BYTE_HEADER,str)) == 0) {
         /* Format : 
         * jk+eer
@@ -166,7 +162,7 @@ int eepromInterface(char rxBuffer[50]){
         // Lecture 0 paramètre
 
         // traitement      
-        eepromInterfaceDescriptor();
+        printEepromInterfaceDescriptor();
     }
     else {
         ESP_LOGE(TAG, "Bad command");

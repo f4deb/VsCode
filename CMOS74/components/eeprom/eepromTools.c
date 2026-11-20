@@ -61,7 +61,6 @@ void  eepromInit(void){
         .write_time_ms = 10,
     };
 
-
     for (int i = 0; i < LENGTH; i++) {
         write_buf[i] = i*4;
     }

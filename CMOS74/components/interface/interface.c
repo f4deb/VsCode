@@ -18,6 +18,7 @@
 #include "../cpuLed/include/cpuLedInterfaceDescriptor.h"
 //#include "../clock/include/clockInterface.h"
 #include "../eeprom/include/eepromInterface.h"
+#include "../eeprom/include/eepromInterfaceDescriptor.h"
 #include "../errorStore/include/errorStoreInterface.h"
 #include "../errorStore/include/errorStoreInterfaceDescriptor.h"
 //#include "../8IoButtonBoard/include/8IoButtonBoardInterface.h"
@@ -78,6 +79,7 @@ void createInterfaceDescriptor(){
     initInterfaceDscriptor();
     initLedInterfaceDesriptor();
     initErrorStoreInterfaceDesriptor();
+    initEepromInterfaceDescriptor();
 }
 
 void addInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
@@ -102,6 +104,7 @@ void createInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
         addInterfaceDescriptorToList(getInterfaceDescriptor());
         addInterfaceDescriptorToList(getLedInterfaceDescriptor());
         addInterfaceDescriptorToList(getErrorStoreInterfaceDescriptor());
+        addInterfaceDescriptorToList(getEepromInterfaceDescriptor());
     }    
 }
 

@@ -63,7 +63,6 @@ void init(){
     };
     gpio_config(&io_conf);
 
-
     errorStoreInit();
     I2cBusInit();  
     eepromInit();
