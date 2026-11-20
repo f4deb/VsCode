@@ -48,41 +48,11 @@
 #include "../components/8IoButtonBoard/include/8IoButtonBoard.h"
 
 */
-
-
-
 static const char *TAG= "Main : ";
 
 #define GPIO_OUTPUT_PIN_SEL ((1ULL<<LED1_GREEN_GPIO)|(1ULL<<LED1_RED_GPIO)|(1ULL<<LED2_GREEN_GPIO)|(1ULL<<LED2_RED_GPIO))
 
 void init(){
-
-    errorStoreInit();
-/*
-ESP_ERROR_CHECK(error_store_init());
-
- error_store_write(ESP_FAIL, "titi");
- error_store_write(ESP_ERR_TIMEOUT, "TiTi");
-
-    
-// Lecture des erreurs
-    error_log_entry_t logs[MAX_ERROR_LOGS];
-    size_t count = 0;
-
-    if (error_store_read_all(logs, &count) == ESP_OK) {
-        ESP_LOGI(TAG, "Nombre d'erreurs en mémoire : %zu", count);
-        for (size_t i = 0; i < count; i++) {
-            ESP_LOGI(TAG, "[%lu ms] Code: 0x%x | Msg: %s",
-                     logs[i].timestamp, logs[i].err_code, logs[i].message);
-        }
-    }
-*/
-
-
-    /* Configure the peripheral according to the LED type */
-    //configure_led();
-
-    I2cBusInit();  
 
     gpio_config_t io_conf = {
         .intr_type = GPIO_INTR_DISABLE,
@@ -93,11 +63,15 @@ ESP_ERROR_CHECK(error_store_init());
     };
     gpio_config(&io_conf);
 
-    eepromInit();
 
-    //i2c_dev_pcf8574_init();
-//printDeviceLine();
-    //initClock();
+    errorStoreInit();
+    I2cBusInit();  
+    eepromInit();
+}
+
+
+void taskInit(void){    
+
     //UART COMMAND Task
     xTaskCreate(command_uart_task, 
                 "uart_command_task", 
@@ -158,5 +132,6 @@ ESP_ERROR_CHECK(error_store_init());
 
 void app_main(void){
     init();
+    taskInit();
     i2cDetect();
 }

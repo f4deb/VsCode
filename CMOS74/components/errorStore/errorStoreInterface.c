@@ -106,3 +106,24 @@ void errorStoreInterface(char rxBuffer[50]){
         //ERR_COMMAND_INVALID
     }
 }
+
+
+/*
+ESP_ERROR_CHECK(error_store_init());
+
+ error_store_write(ESP_FAIL, "titi");
+ error_store_write(ESP_ERR_TIMEOUT, "TiTi");
+
+    
+// Lecture des erreurs
+    error_log_entry_t logs[MAX_ERROR_LOGS];
+    size_t count = 0;
+
+    if (error_store_read_all(logs, &count) == ESP_OK) {
+        ESP_LOGI(TAG, "Nombre d'erreurs en mémoire : %zu", count);
+        for (size_t i = 0; i < count; i++) {
+            ESP_LOGI(TAG, "[%lu ms] Code: 0x%x | Msg: %s",
+                     logs[i].timestamp, logs[i].err_code, logs[i].message);
+        }
+    }
+*/
