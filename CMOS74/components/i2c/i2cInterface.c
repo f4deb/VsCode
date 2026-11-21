@@ -37,7 +37,7 @@ void i2cInterface(char rxBuffer[50]){
         // Lecture 0 paramètre
 
         // traitement      
-        i2cInterfaceDescriptor();
+        printI2cInterfaceDescriptor();
     }
     else {
         ESP_LOGE(TAG, "Bad command");

@@ -42,20 +42,43 @@ void initEepromInterfaceDescriptor(void){
     }
 }
 
-
-
-
-
-
-
 void printEepromInterfaceDescriptor(void){
+
     printDeviceLine();
-    printHelpTitle(INTERFACE_HEADER, EEPROM_INTERFACE_HEADER,"     ", EEPROM_INTERFACE_HEADER_NAME);
+    printHelpTitle(eepromInterfaceDescriptor.command,  " / ", eepromInterfaceDescriptor.name, eepromInterfaceDescriptor.description);
     printDeviceLine();
-    printTableLine("help        : h","input : 0","Ouput : 0 "," ");
+    printTableCode("help : "EEPROM_HELP_HEADER,0x00000,0x00000);
     printTableBlank();
-    printTableLine("Write Block : W","input : 18","Ouput : 2 "," "); 
+    printTableCode("Write Block Eeprom  : "EEPROM_BLOCK_WRITE_HEADER,0x00000,0x00000);
+    printTableCode("Start Address to write",0x10104,0x00000);
+    printTableCode("separator -",0x40000,0x00000);
+    printTableCode("16 bytes to write  -",0x010132,0x00000);
+    printTableCode("code error",0x00000,0x20104); 
     printTableBlank();
-    printTableLine("Read Block  : W","input : 18","Ouput : 2 "," ");     
-    printDeviceStar(); 
+    printTableCode("Write byte Eeprom  : "EEPROM_BYTE_WRITE_HEADER,0x00000,0x00000);
+    printTableCode("Start Address to write",0x10104,0x00000);
+    printTableCode("separator -",0x40000,0x00000);
+    printTableCode("Byte to write  -",0x010102,0x00000);
+    printTableCode("code error",0x00000,0x20104); 
+    printTableBlank();
+    printTableCode("Eeprom set Adrress : "EEPROM_SET_ADDRESSE_HEADER,0x00000,0x00000); 
+    printTableCode("Set EEprom address",0x10104,0x00000);
+    printTableCode("code error",0x00000,0x20104);
+    printTableBlank();
+    printTableCode("Read Eeprom : "EEPROM_READ_BYTE_HEADER,0x00000,0x00000); 
+    printTableCode("Address to Read",0x10104,0x00000);
+    printTableCode("Return Value",0x00000,0x20102);
+    printTableCode("code error",0x00000,0x20104); 
+    printTableBlank();
+    printTableCode("Read Block Eeprom : "EEPROM_READ_BLOC_ADRESS_HEADER,0x00000,0x00000); 
+    printTableCode("Start Address to Read",0x10104,0x00000);
+    printTableCode("separator -",0x40000,0x00000);
+    printTableCode("Block size to read",0x10102,0x00000);
+    printTableCode("Return Value",0x00000,0x20102);
+    printTableCode("code error",0x00000,0x20104); 
+    printTableBlank();
+    printTableCode("Eeprom set Adrress : "EEPROM_READ_ALL_HEADER,0x00000,0x00000); 
+    printTableCode("code error",0x00000,0x20104);
+    printDeviceLine();
 }
+

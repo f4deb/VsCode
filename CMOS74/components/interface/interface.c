@@ -24,6 +24,7 @@
 //#include "../8IoButtonBoard/include/8IoButtonBoardInterface.h"
 //#include "../Oled/include/OledInterface.h"
 #include "../i2c/include/i2cInterface.h"
+#include "../i2c/include/i2cInterfaceDescriptor.h"
 //#include "../sensor/include/sensorInterface.h"
 #include "../uartUtils/include/uartUtils.h"
 
@@ -37,14 +38,12 @@ const char* interface_err_to_name(esp_err_t err) {
     }
 }
 
-
 const char* interfaceName = INTERFACE_HEADER_NAME; 
 const char* interfaceCommand = INTERFACE_HEADER; 
 const char* interfaceDescriptort= INTERFACE_DESCRIPTOR; 
 
 static InterfaceDescriptor interfaceDescriptor;
 static InterfaceList interfaceList;
-
 
 InterfaceList* getInterfaceList(void){
     return &interfaceList;
@@ -80,6 +79,8 @@ void createInterfaceDescriptor(){
     initLedInterfaceDesriptor();
     initErrorStoreInterfaceDesriptor();
     initEepromInterfaceDescriptor();
+    initI2cInterfaceDescriptor();
+
 }
 
 void addInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
@@ -105,6 +106,7 @@ void createInterfaceDescriptorToList(InterfaceDescriptor* descriptor){
         addInterfaceDescriptorToList(getLedInterfaceDescriptor());
         addInterfaceDescriptorToList(getErrorStoreInterfaceDescriptor());
         addInterfaceDescriptorToList(getEepromInterfaceDescriptor());
+        addInterfaceDescriptorToList(getI2cInterfaceDescriptor());
     }    
 }
 
@@ -146,8 +148,6 @@ void interface_task(void *arg){
 
                 // CPU Led Interface
                 if ((strcmp(CPU_LED_INTERFACE_HEADER,str)) == 0) {
-                    //initLedInterfaceDesriptor();
-
                     cpuLedInterface(rxBuffer+(5));
                 }
                 // Clock

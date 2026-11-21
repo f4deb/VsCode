@@ -134,6 +134,7 @@ void printTableLine(char *text1,char *text2,char *text3,char *text4){
  *              xxxx01ss = HEX / ss = size of hexadecimal
  *              xxxx02ss = DEC / ss = size of decimal
  *              xxxx03ss = STR / ss = size of string   
+ *              xxxx04xx =  -  = separator   
  *  
  * @param input 
  *  * @return char* 
@@ -162,6 +163,9 @@ char* getFromCodeDescriptor(uint32_t input){
         case 2: 
             snprintf(str2, sizeof(str2), "DEC");
             break;
+        case 3: 
+            snprintf(str2, sizeof(str2), "-  ");
+            break;        
     }
     
     switch(p_fort){
@@ -170,15 +174,12 @@ char* getFromCodeDescriptor(uint32_t input){
         break;
     
     case 1:
-        //str1 = "input :    ";
-        //sprintf(str1,"input : %02x",0x02);
         snprintf(str1, sizeof(str1), "input : %s%x",str2, (uint8_t)(size & 0xFF));
         break;
 
     case 2:
-        snprintf(str1, sizeof(str1), "Outout : %s%x",str2, (uint8_t)(size & 0xFF));
+        snprintf(str1, sizeof(str1), "Output : %s%x",str2, (uint8_t)(size & 0xFF));
         break;
-
     case 3:
         snprintf(str1, sizeof(str1), "String : %s",str2);
         break;
@@ -206,6 +207,6 @@ void printTableCode(char *name,uint32_t input,uint32_t output){
 
     str1 = printHelpSecondColumn(str,getFromCodeDescriptor(output));
     sprintf(str, str1);
-    ESP_LOGE(TAG,"%s",str);
+    ESP_LOGI(TAG,"%s",str);
     uartDataBackLF(str);
 }
